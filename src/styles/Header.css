@@ -1,0 +1,96 @@
+/* ===== ساختار اصلی هدر ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--header-padding-x);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/* ===== برند ===== */
+.header__brand {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.header__brand span {
+  font-size: var(--font-size-brand);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ===== ناوبری ===== */
+.header__nav {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-gap);
+}
+
+.header__nav-link {
+  position: relative;
+  font-size: var(--font-size-nav);
+  color: var(--color-text-muted);
+  transition: color 0.25s ease, font-size 0.25s ease;
+  padding-bottom: var(--underline-offset);
+}
+
+.header__nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+/* حالت فعال: بزرگ‌تر + خط زیر */
+.header__nav-link--active {
+  font-size: var(--font-size-nav-active);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.header__nav-link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: var(--underline-width);
+  height: var(--underline-height);
+  background-color: var(--color-underline);
+  border-radius: 2px;
+}
+
+/* ===== آیکون‌ها ===== */
+.header__actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--icon-gap);
+}
+
+.header__icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.header__icon-btn:hover {
+  opacity: 0.75;
+}
+
+.header__icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
