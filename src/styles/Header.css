@@ -1,4 +1,3 @@
-/* ===== ساختار اصلی هدر ===== */
 .header {
   display: flex;
   align-items: center;
@@ -7,9 +6,9 @@
   padding: 0 var(--header-padding-x);
   background-color: var(--color-bg);
   color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* ===== برند ===== */
 .header__brand {
   flex: 1;
   display: flex;
@@ -22,7 +21,6 @@
   letter-spacing: -0.5px;
 }
 
-/* ===== ناوبری ===== */
 .header__nav {
   flex: 2;
   display: flex;
@@ -47,7 +45,6 @@
   color: var(--color-text-primary);
 }
 
-/* حالت فعال: بزرگ‌تر + خط زیر */
 .header__nav-link--active {
   font-size: var(--font-size-nav-active);
   color: var(--color-text-primary);
@@ -66,7 +63,6 @@
   border-radius: 2px;
 }
 
-/* ===== آیکون‌ها ===== */
 .header__actions {
   flex: 1;
   display: flex;
