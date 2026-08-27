@@ -1,3 +1,4 @@
+/* hero section */
 .hero {
   --hero-overlay: rgba(20, 20, 20, 0.75);
   --hero-border: rgba(255, 255, 255, 0.1);
@@ -73,5 +74,114 @@
 
   .hero__desc {
     font-size: 14px;
+  }
+}
+
+/* papular categories */
+
+.popular-categories {
+  --section-text: #ffffff;
+  --section-text-muted: #b0b0b0;
+  --section-card-radius: 12px;
+  --section-gap: 24px;
+  --section-padding-y: 100px;
+
+  background-color: var(--section-bg);
+  padding: var(--section-padding-y) 60px;
+  direction: rtl;
+}
+
+.popular-categories__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.popular-categories__title {
+  font-family: var(--font-family-base);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--section-text);
+  margin: 0;
+}
+
+.popular-categories__underline {
+  width: 48px;
+  height: 3px;
+  background-color: var(--color-btn-main-bg);
+  border-radius: 2px;
+}
+
+.popular-categories__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--section-gap);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.popular-categories__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--section-card-radius);
+  padding: 16px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.popular-categories__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-btn-main-bg);
+}
+
+.popular-categories__image-wrapper {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.popular-categories__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.popular-categories__card:hover .popular-categories__image {
+  transform: scale(1.05);
+}
+
+.popular-categories__card-title {
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  color: var(--section-text);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .popular-categories__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .popular-categories {
+    padding: var(--section-padding-y) 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .popular-categories__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .popular-categories__title {
+    font-size: 22px;
   }
 }
