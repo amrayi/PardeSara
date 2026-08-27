@@ -1,8 +1,9 @@
+import HeroSection from "../components/Home/HeroSection";
+
 function Home(){
     return (
         <div>
-            <h1>Home Page</h1>
-            <p>Welcome to my React app!</p>
+            <HeroSection />
         </div>
     )
 }
