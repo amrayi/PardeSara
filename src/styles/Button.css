@@ -1,0 +1,72 @@
+.btn {
+  --btn-main-bg: #D3E7DD;
+  --btn-main-text: #23342D;
+  --btn-main-hover: #2d4238;
+  --btn-main-text-hover: #ffffff;
+  --btn-secondary-bg: #f0f0f0;
+  --btn-secondary-text: #1a1a1a;
+  --btn-secondary-hover: #e0e0e0;
+  --btn-radius-pill: 9999px;
+
+  font-family: var(--font-family-base);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  border-radius: var(--btn-radius-pill);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Variant: Main */
+.btn--main {
+  background-color: var(--btn-main-bg);
+  color: var(--btn-main-text);
+}
+
+.btn--main:hover {
+  background-color: var(--btn-main-hover);
+  color: var(--btn-main-text-hover);
+}
+
+/* Variant: Secondary */
+.btn--secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+}
+
+.btn--secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+/* Variant: Text */
+.btn--text {
+  background-color: transparent;
+  color: var(--btn-main-bg);
+}
+
+.btn--text:hover {
+  background-color: rgba(35, 52, 45, 0.08);
+}
+
+/* Sizes */
+.btn--sm {
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+.btn--md {
+  padding: 12px 28px;
+  font-size: 15px;
+}
+
+.btn--lg {
+  padding: 16px 36px;
+  font-size: 16px;
+}
