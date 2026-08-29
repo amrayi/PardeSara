@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import PublicLayout from "../layouts/PublicLayout";
 import Home from "../pages/Home";
+import ProductList from "../pages/ProductList";
 import { RoleGuard } from "./roleGuard";
 
 export const router = createBrowserRouter([
@@ -9,10 +10,16 @@ export const router = createBrowserRouter([
     path: "/",
     element: <PublicLayout />,
     children: [
-      { index: true, element: <Home /> },
-      // بعداً: products, product/:id, cart
+      {
+        index: true, 
+        element: <Home /> 
+      },
+      { 
+        path: "products", 
+        element: <ProductList /> 
+      },
+      // بعداً: product/:slug, cart
 
-      // نمونه استفاده از RoleGuard برای مسیرهای نیازمند لاگین (فعلاً کامنته):
       // {
       //   element: <RoleGuard />,
       //   children: [

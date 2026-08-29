@@ -1,12 +1,19 @@
+export type FabricType = "حریر" | "مخمل" | "کتان";
+
 export interface Product {
   id: string;
   title: string;
   slug: string;
   price: number;
-  discountPrice?: number;
-  description: string;
-  images: string[];
-  stock: number;
+  image: string;
+  fabricType: FabricType;
   category: string;
-  createdAt: string;
+  stock: number;
+  description?: string;
+}
+
+export interface ProductFilters {
+  minPrice?: number;
+  maxPrice?: number;
+  fabricTypes?: FabricType[];
 }
