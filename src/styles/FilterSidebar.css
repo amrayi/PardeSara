@@ -1,6 +1,6 @@
 .filter-sidebar {
-  background-color: #171717;
-  border: 1px solid #2a2a2a;
+  background-color: var(--color-bg-items);
+  border: 2px solid var(--color-border);
   border-radius: 12px;
   padding: 20px;
   height: fit-content;
@@ -8,12 +8,13 @@
 
 .filter-sidebar__title {
   font-size: 16px;
-  color: #f5f5f5;
+  color: var(--color-title);
   margin: 0 0 16px;
 }
 
 .filter-sidebar__group {
-  background-color: #1e1e1e;
+  background-color: var(--color-bg-detail);
+  border: 2px solid var(--color-border);
   border-radius: 10px;
   padding: 14px 16px;
   margin-bottom: 12px;
@@ -21,7 +22,7 @@
 
 .filter-sidebar__group-title {
   font-size: 13px;
-  color: #b3b3b3;
+  color: var(--color-text-muted);
   margin: 0 0 10px;
   font-weight: 400;
 }
@@ -37,8 +38,40 @@
 }
 
 .filter-sidebar__option input[type="checkbox"] {
-  accent-color: #6fae7f;
-  width: 16px;
-  height: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid #3a3a3a;
+  background-color: #141414;
   cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.filter-sidebar__option input[type="checkbox"]:checked {
+  background-color: var(--color-bg-button);
+  border-color: var(--color-bg-button);
+}
+
+.filter-sidebar__option input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+
+.filter-sidebar__option input[type="checkbox"]:hover {
+  background-color: #141414;
+}
+
+.filter-sidebar__option input[type="checkbox"]:checked:hover {
+  background-color: var(--color-bg-button);
 }

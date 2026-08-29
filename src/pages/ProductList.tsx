@@ -37,13 +37,15 @@ function ProductList() {
       <div className="product-list-page__header">
         <nav className="product-list-page__breadcrumb">
           <Link to="/">خانه</Link>
-          <span>{" < "}</span>
+          <span>{" > "}</span>
           <span>محصولات</span>
         </nav>
         <h1 className="product-list-page__title">کالکشن پرده‌ها</h1>
       </div>
 
       <div className="product-list-page__content">
+        <FilterSidebar />
+        
         <div className="product-list-page__grid-wrapper">
           {isLoading && <p className="product-list-page__status">در حال بارگذاری...</p>}
           {error && <p className="product-list-page__status product-list-page__status--error">{error}</p>}
@@ -56,8 +58,6 @@ function ProductList() {
             </div>
           )}
         </div>
-
-        <FilterSidebar />
       </div>
     </div>
   );

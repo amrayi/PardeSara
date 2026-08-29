@@ -2,15 +2,15 @@
   display: block;
   text-decoration: none;
   color: inherit;
-  background-color: #171717;
+  background-color: var(--color-bg-items);
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #2a2a2a;
+  border: 2px solid var(--color-border);
   transition: border-color 0.2s ease;
 }
 
 .product-card:hover {
-  border-color: #444;
+  border-color: var(--color-border);
 }
 
 .product-card__image-wrapper {
@@ -32,12 +32,12 @@
 .product-card__title {
   font-size: 15px;
   font-weight: 500;
-  color: #f5f5f5;
+  color: var(--color-text-muted);
   margin: 0 0 8px;
 }
 
 .product-card__price {
   font-size: 14px;
-  color: #b3b3b3;
+  color: var(--color-text-primary);
   margin: 0;
 }
