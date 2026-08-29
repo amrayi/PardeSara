@@ -1,5 +1,6 @@
-import type { Product, ProductFilters } from "../types/product";
+import type { Product, ProductDetail, ProductFilters } from "../types/product";
 import { mockProducts } from "../data/mockProducts";
+import { mockProductDetails } from "../data/mockProductDetails";
 // وقتی API آماده شد این رو استفاده می‌کنیم:
 // import { getData } from "./services";
 
@@ -30,9 +31,11 @@ export async function getProducts(filters?: ProductFilters): Promise<Product[]> 
   // });
 }
 
-export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+export async function getProductDetailBySlug(
+  slug: string
+): Promise<ProductDetail | undefined> {
   await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
-  return mockProducts.find((p) => p.slug === slug);
+  return mockProductDetails[slug];
 
   // ---- نسخه آینده ----
   // return getData<Product>({ endPoint: `/products/${slug}` });
