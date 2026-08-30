@@ -1,0 +1,48 @@
+export type FabricType = "حریر" | "مخمل" | "کتان";
+
+export interface Product {
+  id: string;
+  title: string;
+  slug: string;
+  price: number;
+  image: string;
+  fabricType: FabricType;
+  category: string;
+  stock: number;
+  description?: string;
+}
+
+export interface ProductFilters {
+  minPrice?: number;
+  maxPrice?: number;
+  fabricTypes?: FabricType[];
+}
+
+// ---- نوع‌های مخصوص صفحه جزئیات محصول ----
+
+export interface ProductColorVariant {
+  id: string;
+  name: string;
+  colorHex: string;
+}
+
+export interface ProductMedia {
+  type: "image" | "video";
+  url: string;
+  thumbnail?: string; // فقط برای ویدیو لازم است
+}
+
+export interface ProductDetailSection {
+  id: string;
+  title: string;
+  content: string;
+}
+
+export interface ProductDetail extends Product {
+  subtitle?: string; // مثلا: "مدل آرامش - رنگ سبز مریم‌گلی"
+  colorVariants: ProductColorVariant[];
+  heightCm: number;
+  widthCm: number;
+  media: ProductMedia[];
+  sections: ProductDetailSection[];
+}
