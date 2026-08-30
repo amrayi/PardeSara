@@ -1,12 +1,16 @@
 :root {
   --color-bg-footer: #1C1B1B;
   --color-bg: #131313;
+  --color-bg-detail: #1C1B1B;
   --color-bg-section: #424845;
+  --color-bg-items: #0E0E0E;
+  --color-title: #E5E2E1;
   --color-text-primary: #C2C8C3;
   --color-text-muted: #b0b0b0;
   --color-accent: #ffffff;
   --color-underline: #ffffff;
   --color-border: #333634;
+  --color-bg-button: #D3E7DD;
 
   --font-family-base: 'Vazirmatn', 'Vazir';
   --font-size-nav: 15px;
@@ -38,7 +42,7 @@ html {
 
 body {
   font-family: var(--font-family-base);
-  background-color: #f5f5f5;
+  background-color: var(--color-bg);
   color: var(--color-text-primary);
 }
 
