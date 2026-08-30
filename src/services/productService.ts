@@ -40,3 +40,17 @@ export async function getProductDetailBySlug(
   // ---- نسخه آینده ----
   // return getData<Product>({ endPoint: `/products/${slug}` });
 }
+
+export async function getRelatedProducts(
+  currentSlug: string,
+  limit = 6
+): Promise<Product[]> {
+  await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
+
+  return mockProducts
+    .filter((p) => p.slug !== currentSlug)
+    .slice(0, limit);
+
+    // ---- نسخه آینده ----
+    // return getData<Product[]>({ endPoint: `/products/${currentSlug}/related` });
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ProductMedia } from "../../types/product";
-import "../../styles/ProductGallery.css";
+import "../../styles/ProductDetail.css";
 
 interface ProductGalleryProps {
   media: ProductMedia[];

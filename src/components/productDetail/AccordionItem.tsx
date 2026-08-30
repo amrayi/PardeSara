@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import "../../styles/AccordionItem.css";
+import "../../styles/ProductDetail.css";
 
 interface AccordionItemProps {
   title: string;
