@@ -10,6 +10,7 @@ export interface Product {
   category: string;
   stock: number;
   description?: string;
+  colorName?: string;
 }
 
 export interface ProductFilters {
