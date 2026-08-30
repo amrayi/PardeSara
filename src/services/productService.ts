@@ -54,3 +54,11 @@ export async function getRelatedProducts(
     // ---- نسخه آینده ----
     // return getData<Product[]>({ endPoint: `/products/${currentSlug}/related` });
 }
+
+export async function getNewestProducts(limit = 4): Promise<Product[]> {
+  await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
+  return mockProducts.slice(0, limit);
+
+  // ---- نسخه آینده ----
+  // return getData<Product[]>({ endPoint: "/products/newest", params: { limit } });
+}

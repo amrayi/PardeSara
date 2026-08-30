@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import '../styles/Header.css';
 import profile from '../assets/icons/Container.png';
-import buy from '../assets/icons/Icon.png';
+import buy from '../assets/icons/buy.png';
 
 const navItems = [
   { label: 'خانه',       path: '/' },
