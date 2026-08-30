@@ -9,7 +9,8 @@ import { useCart } from "../context/CartContext";
 import type { Product, ProductDetail as ProductDetailType } from "../types/product";
 import { formatPrice } from "../utils/formatPrice";
 import "../styles/ProductDetail.css";
-import buy from "../assets/icons/Icon.png";
+import Button from "../components/ui/Button";
+import CartIcon from "../assets/icons/Icon (9).png";
 
 function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -115,16 +116,16 @@ function ProductDetail() {
               {isFavorite ? "♥" : "♡"}
             </button>
 
-            {/* باتن کاستوم خودمون رو باید بزاریم */}
-            <button
-              type="button"
+            <Button
+              variant="main"
+              size="sm"
+              radius="md"
               className="product-detail__add-to-cart"
               onClick={() => addToCart(product, 1)}
             >
+              <img src={CartIcon} className="product-detail__cart-icon" />
               افزودن به سبد خرید
-              {/* این ایکون سبد خرید هم باید بیاد توش */}
-              {/* <img src={buy}></img> */}
-            </button>
+            </Button>
           </div>
 
           <div className="product-detail__sections">

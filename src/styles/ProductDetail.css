@@ -105,13 +105,10 @@
 
 .product-detail__add-to-cart {
   flex: 1;
-  border: none;
-  border-radius: 10px;
-  background-color: var(--color-bg-button);
-  color: #1a1a1a;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
+}
+
+.product-detail__cart-icon {
+  width: 20px;
 }
 
 .product-detail__sections {
