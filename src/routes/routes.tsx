@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import ProductList from "../pages/ProductList";
 import { RoleGuard } from "./roleGuard";
 import ProductDetail from "../pages/ProductDetail";
+import Cart from "../pages/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       { 
         path: "products/:slug", 
         element: <ProductDetail /> 
+      },
+      { 
+        path: "cart", 
+        element: <Cart /> 
       },
       // بعداً: product/:slug, cart
 

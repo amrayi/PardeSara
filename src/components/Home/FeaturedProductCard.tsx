@@ -20,9 +20,17 @@ function FeaturedProductCard({ product }: FeaturedProductCardProps) {
   };
 
   const handleQuickAdd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    addToCart(product, 1);
-  };
+  e.preventDefault();
+  addToCart({
+    id: product.id,
+    productId: product.id,
+    slug: product.slug,
+    title: product.title,
+    image: product.image,
+    price: product.price,
+    colorName: product.colorName,
+  });
+};
 
   return (
     <div className="featured-product-card">
