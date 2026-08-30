@@ -1,5 +1,5 @@
 import type { ProductColorVariant } from "../../types/product";
-import "../../styles/ColorSwatchSelector.css";
+import "../../styles/ProductDetail.css";
 
 interface ColorSwatchSelectorProps {
   variants: ProductColorVariant[];

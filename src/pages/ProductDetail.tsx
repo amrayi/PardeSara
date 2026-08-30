@@ -3,17 +3,20 @@ import { Link, useParams } from "react-router-dom";
 import AccordionItem from "../components/productDetail/AccordionItem";
 import ProductGallery from "../components/productDetail/ProductGallery";
 import ColorSwatchSelector from "../components/productDetail/ColorSwatchSelector";
-import { getProductDetailBySlug } from "../services/productService";
+import ProductCarousel from "../components/productDetail/ProductCarousel";
+import { getProductDetailBySlug, getRelatedProducts } from "../services/productService";
 import { useCart } from "../context/CartContext";
-import type { ProductDetail as ProductDetailType } from "../types/product";
+import type { Product, ProductDetail as ProductDetailType } from "../types/product";
 import { formatPrice } from "../utils/formatPrice";
 import "../styles/ProductDetail.css";
+import buy from "../assets/icons/Icon.png";
 
 function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { addToCart } = useCart();
 
   const [product, setProduct] = useState<ProductDetailType | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [selectedColorId, setSelectedColorId] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +37,8 @@ function ProductDetail() {
         } else {
           setProduct(data);
           setSelectedColorId(data.colorVariants[0]?.id ?? "");
+          const related = await getRelatedProducts(slug!);
+          if (isMounted) setRelatedProducts(related);
         }
       } catch {
         if (isMounted) setError("خطا در دریافت اطلاعات محصول");
@@ -55,79 +60,91 @@ function ProductDetail() {
   const selectedColor = product.colorVariants.find((v) => v.id === selectedColorId);
 
   return (
-    <div className="product-detail">
-      <div className="product-detail__info">
-        <nav className="product-detail__breadcrumb">
-          <span>{product.category}</span>
-          <span>{" > "}</span>
-          <Link to="/products">پرده‌ها</Link>
-        </nav>
-
-        <h1 className="product-detail__title">{product.title}</h1>
-        {product.subtitle && (
-          <p className="product-detail__subtitle">{product.subtitle}</p>
-        )}
-
-        <p className="product-detail__price">{formatPrice(product.price)}</p>
-
-        <div className="product-detail__section">
-          <p className="product-detail__label">
-            انتخاب رنگ: {selectedColor?.name}
-          </p>
-          <ColorSwatchSelector
-            variants={product.colorVariants}
-            selectedId={selectedColorId}
-            onSelect={setSelectedColorId}
-          />
+    <div className="product-detail-page">
+      <div className="product-detail">
+        
+        <div className="product-detail__gallery">
+          <ProductGallery media={product.media} />
         </div>
 
-        <div className="product-detail__dimensions">
-          <div className="product-detail__dimension-box">
-            <p className="product-detail__label">ارتفاع (سانتی‌متر)</p>
-            <div className="product-detail__dimension-value">{product.heightCm}</div>
+        <div className="product-detail__info">
+          <nav className="product-detail__breadcrumb">
+            <Link to="/products">پرده‌ها</Link>
+            <span>{" > "}</span>
+            <span>{product.category}</span>
+          </nav>
+
+          <h1 className="product-detail__title">{product.title}</h1>
+          {product.subtitle && (
+            <p className="product-detail__subtitle">{product.subtitle}</p>
+          )}
+
+          <p className="product-detail__price">{formatPrice(product.price)}</p>
+
+          <div className="product-detail__section">
+            <p className="product-detail__label">
+              انتخاب رنگ: {selectedColor?.name}
+            </p>
+            <ColorSwatchSelector
+              variants={product.colorVariants}
+              selectedId={selectedColorId}
+              onSelect={setSelectedColorId}
+            />
           </div>
-          <div className="product-detail__dimension-box">
-            <p className="product-detail__label">عرض (سانتی‌متر)</p>
-            <div className="product-detail__dimension-value">{product.widthCm}</div>
+
+          <div className="product-detail__dimensions">
+            <div className="product-detail__dimension-box">
+              <p className="product-detail__label">ارتفاع (سانتی‌متر)</p>
+              <div className="product-detail__dimension-value">{product.heightCm}</div>
+            </div>
+            <div className="product-detail__dimension-box">
+              <p className="product-detail__label">عرض (سانتی‌متر)</p>
+              <div className="product-detail__dimension-value">{product.widthCm}</div>
+            </div>
           </div>
-        </div>
 
-        <div className="product-detail__actions">
-          <button
-            type="button"
-            className={`product-detail__favorite ${
-              isFavorite ? "product-detail__favorite--active" : ""
-            }`}
-            onClick={() => setIsFavorite((prev) => !prev)}
-            aria-label="افزودن به علاقه‌مندی‌ها"
-          >
-            {isFavorite ? "♥" : "♡"}
-          </button>
-          <button
-            type="button"
-            className="product-detail__add-to-cart"
-            onClick={() => addToCart(product, 1)}
-          >
-            افزودن به سبد خرید
-          </button>
-        </div>
-
-        <div className="product-detail__sections">
-          {product.sections.map((section, index) => (
-            <AccordionItem
-              key={section.id}
-              title={section.title}
-              defaultOpen={index === 0}
+          <div className="product-detail__actions">
+            <button
+              type="button"
+              className={`product-detail__favorite ${
+                isFavorite ? "product-detail__favorite--active" : ""
+              }`}
+              onClick={() => setIsFavorite((prev) => !prev)}
+              aria-label="افزودن به علاقه‌مندی‌ها"
             >
-              {section.content}
-            </AccordionItem>
-          ))}
+              {isFavorite ? "♥" : "♡"}
+            </button>
+
+            {/* باتن کاستوم خودمون رو باید بزاریم */}
+            <button
+              type="button"
+              className="product-detail__add-to-cart"
+              onClick={() => addToCart(product, 1)}
+            >
+              افزودن به سبد خرید
+              {/* این ایکون سبد خرید هم باید بیاد توش */}
+              {/* <img src={buy}></img> */}
+            </button>
+          </div>
+
+          <div className="product-detail__sections">
+            {product.sections.map((section, index) => (
+              <AccordionItem
+                key={section.id}
+                title={section.title}
+                defaultOpen={index === 0}
+              >
+                {section.content}
+              </AccordionItem>
+            ))}
+          </div>
         </div>
+
       </div>
 
-      <div className="product-detail__gallery">
-        <ProductGallery media={product.media} />
-      </div>
+      {relatedProducts.length > 0 && (
+        <ProductCarousel title="محصولات مشابه" products={relatedProducts} />
+      )}
     </div>
   );
 }
