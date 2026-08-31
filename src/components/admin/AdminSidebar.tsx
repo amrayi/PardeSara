@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import dashboardIcon from "../../assets/icons/dashboard.svg";
-import productsIcon from "../../assets/icons/products.svg";
-import ordersIcon from "../../assets/icons/orders.svg";
-import customersIcon from "../../assets/icons/customers.svg";
-import settingsIcon from "../../assets/icons/settings.svg";
+import dashboardIcon from "../../assets/icons/dashboard.png";
+import productsIcon from "../../assets/icons/box.png";
+import ordersIcon from "../../assets/icons/store.png";
+import customersIcon from "../../assets/icons/profile.png";
+import settingsIcon from "../../assets/icons/setting.png";
 
 const navItems = [
   { to: "/admin", label: "پیشخوان", icon: dashboardIcon, end: true },

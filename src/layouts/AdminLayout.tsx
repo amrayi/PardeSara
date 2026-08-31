@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import AdminSidebar from "../components/admin/AdminSideBar";
+import AdminSidebar from "../components/admin/AdminSidebar";
 import { useAuth } from "../context/AuthContext";
-import bellIcon from "../assets/icons/bell.svg";
-import chevronDownIcon from "../assets/icons/chevron-down.svg";
-import searchIcon from "../assets/icons/search.svg";
+import bellIcon from "../assets/icons/notif.png";
+import chevronDownIcon from "../assets/icons/down.png";
+import searchIcon from "../assets/icons/search.png";
 import "../styles/Admin.css";
 
 function AdminLayout() {
