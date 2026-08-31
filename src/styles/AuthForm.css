@@ -1,0 +1,146 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.auth-form__title {
+  color: var(--color-title);
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.auth-form__subtitle {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin: 0 0 28px;
+}
+
+.auth-form__field {
+  text-align: right;
+  margin-bottom: 24px;
+}
+
+.auth-form__field label {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.auth-form__input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-bg-items);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0 14px;
+  transition: border-color 0.2s ease;
+}
+
+.auth-form__input-wrapper:focus-within {
+  border-color: var(--color-accent);
+}
+
+.auth-form__input-wrapper--error {
+  border-color: #e07a7a;
+}
+
+.auth-form__input-wrapper input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 14px 0;
+  color: var(--color-title);
+  font-size: 15px;
+  font-family: inherit;
+  direction: ltr;
+  text-align: right;
+}
+
+.auth-form__input-wrapper input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.auth-form__input-icon {
+  width: 14px;
+  height: 18px;
+  opacity: 0.7;
+}
+
+.auth-form__error {
+  display: block;
+  color: #e07a7a;
+  font-size: 12px;
+  margin-top: 6px;
+  text-align: right;
+}
+
+.auth-form__status-error {
+  color: #e07a7a;
+  font-size: 13px;
+  margin: 0 0 16px;
+}
+
+.auth-form__submit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.auth-form__terms {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  margin: 16px 0 0;
+  line-height: 1.8;
+}
+
+.auth-form__terms a {
+  color: var(--color-text-primary);
+}
+
+/* OTP boxes */
+.auth-form__otp-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0 8px;
+}
+
+.auth-form__otp-box {
+  width: 52px;
+  height: 52px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--color-title);
+  background-color: var(--color-bg-items);
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+  outline: none;
+}
+
+.auth-form__otp-box:focus {
+  border-color: var(--color-accent);
+}
+
+.auth-form__otp-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 24px;
+  font-size: 13px;
+}
+
+.auth-form__link-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.auth-form__timer {
+  color: var(--color-text-muted);
+}
