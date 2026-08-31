@@ -5,8 +5,18 @@ import Home from "../pages/Home";
 import ProductList from "../pages/ProductList";
 import { RoleGuard } from "./roleGuard";
 import ProductDetail from "../pages/ProductDetail";
+import Login from "../pages/Login";
+import VerifyOtp from "../pages/VerifyOtp";
 
 export const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/login/verify",
+    element: <VerifyOtp />,
+  },
   {
     path: "/",
     element: <PublicLayout />,

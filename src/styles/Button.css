@@ -67,3 +67,30 @@
 .btn--radius-none {
   border-radius: 0;
 }
+
+.btn-icon-swap {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.btn-icon-swap img {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+  transition: opacity 0.2s ease;
+}
+
+.btn-icon-swap__light {
+  opacity: 0;
+}
+
+.btn--main:hover .btn-icon-swap__dark {
+  opacity: 0;
+}
+
+.btn--main:hover .btn-icon-swap__light {
+  opacity: 1;
+}
