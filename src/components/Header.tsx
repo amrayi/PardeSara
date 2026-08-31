@@ -43,11 +43,13 @@ export default function Header() {
           />
         </button>
         <button className="header__icon-btn" aria-label="سبد خرید">
-          <img
+          <NavLink to='/cart'>
+            <img
             src= {buy}
             alt="cart"
             className="header__icon"
           />
+          </NavLink>
         </button>
       </div>
     </header>

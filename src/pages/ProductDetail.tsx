@@ -60,10 +60,27 @@ function ProductDetail() {
 
   const selectedColor = product.colorVariants.find((v) => v.id === selectedColorId);
 
+  const handleAddToCart = () => {
+    console.log("زده شد", { productId: product.id, selectedColorId });
+    addToCart(
+      {
+        id: `${product.id}-${selectedColorId}`,
+        productId: product.id,
+        slug: product.slug,
+        title: product.title,
+        image: product.image,
+        price: product.price,
+        colorName: selectedColor?.name,
+        widthCm: product.widthCm,
+        heightCm: product.heightCm,
+      },
+      1
+    );
+  };
+
   return (
     <div className="product-detail-page">
       <div className="product-detail">
-        
         <div className="product-detail__gallery">
           <ProductGallery media={product.media} />
         </div>
@@ -121,9 +138,9 @@ function ProductDetail() {
               size="sm"
               radius="md"
               className="product-detail__add-to-cart"
-              onClick={() => addToCart(product, 1)}
+              onClick={handleAddToCart}
             >
-              <img src={CartIcon} className="product-detail__cart-icon" />
+              <img src={CartIcon} className="product-detail__cart-icon" alt="" />
               افزودن به سبد خرید
             </Button>
           </div>
@@ -140,7 +157,6 @@ function ProductDetail() {
             ))}
           </div>
         </div>
-
       </div>
 
       {relatedProducts.length > 0 && (

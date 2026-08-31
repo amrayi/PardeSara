@@ -7,6 +7,7 @@ import { RoleGuard } from "./roleGuard";
 import ProductDetail from "../pages/ProductDetail";
 import Login from "../pages/Login";
 import VerifyOtp from "../pages/VerifyOtp";
+import Cart from "../pages/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       { 
         path: "products/:slug", 
         element: <ProductDetail /> 
+      },
+      { 
+        path: "cart", 
+        element: <Cart /> 
       },
       // بعداً: product/:slug, cart
 
