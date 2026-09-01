@@ -8,7 +8,7 @@ import ProductDetail from "../pages/ProductDetail";
 import Login from "../pages/Login";
 import VerifyOtp from "../pages/VerifyOtp";
 import { RoleGuard } from "./roleGuard";
-
+import Cart from "../pages/Cart";
 import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminOrders from "../pages/admin/AdminOrders";
@@ -38,6 +38,10 @@ export const router = createBrowserRouter([
       { 
         path: "products/:slug", 
         element: <ProductDetail /> 
+      },
+      { 
+        path: "cart", 
+        element: <Cart /> 
       },
       // بعداً: cart, profile, orders (customer)
       // {
