@@ -99,38 +99,6 @@
   color: var(--color-text-primary);
 }
 
-/* OTP boxes */
-.auth-form__otp-boxes {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 24px 0 8px;
-}
-
-.auth-form__otp-box {
-  width: 52px;
-  height: 52px;
-  text-align: center;
-  font-size: 18px;
-  color: var(--color-title);
-  background-color: var(--color-bg-items);
-  border: 2px solid var(--color-border);
-  border-radius: 10px;
-  outline: none;
-}
-
-.auth-form__otp-box:focus {
-  border-color: var(--color-accent);
-}
-
-.auth-form__otp-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 16px 0 24px;
-  font-size: 13px;
-}
-
 .auth-form__link-btn {
   background: none;
   border: none;
@@ -143,4 +111,32 @@
 
 .auth-form__timer {
   color: var(--color-text-muted);
+}
+
+.auth-form__redirect {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+  margin: 1rem 0;
+}
+
+.auth-form__redirect-link {
+  background: none;
+  border: none;
+  color: var(--primary-color, #007bff);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+  transition: color 0.2s ease;
+  font-family: var(--font-family-base);
+}
+
+.auth-form__redirect-link:hover {
+  color: var(--primary-dark, #0056b3);
+  text-decoration: underline;
+}
+
+.auth-form__input-name-icon {
+  width: 20px;
 }

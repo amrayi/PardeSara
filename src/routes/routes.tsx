@@ -6,7 +6,7 @@ import Home from "../pages/Home";
 import ProductList from "../pages/ProductList";
 import ProductDetail from "../pages/ProductDetail";
 import Login from "../pages/Login";
-import VerifyOtp from "../pages/VerifyOtp";
+import SignUp from "../pages/Signup";
 import { RoleGuard } from "./roleGuard";
 import Cart from "../pages/Cart";
 import Dashboard from "../pages/admin/Dashboard";
@@ -20,8 +20,8 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/login/verify",
-    element: <VerifyOtp />,
+    path: "/signUp",
+    element: <SignUp />,
   },
   {
     path: "/",

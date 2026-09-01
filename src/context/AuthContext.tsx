@@ -16,7 +16,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // فعلا از localStorage می‌خونیم. بعدا می‌تونی اینجا یه درخواست به /me بزنی تا مطمئن بشی توکن هنوز معتبره
     const storedUser = localStorage.getItem("user");
     const token = localStorage.getItem("accessToken");
     if (storedUser && token) {
