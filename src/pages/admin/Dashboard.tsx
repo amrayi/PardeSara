@@ -76,12 +76,6 @@ function Dashboard() {
         <ul className="admin-recent-orders__list">
           {recentOrders.map((order) => (
             <li key={order.id} className="admin-recent-orders__item">
-              <OrderStatusBadge status={order.status} />
-              <div className="admin-recent-orders__info">
-                <span className="admin-recent-orders__customer">{order.customerName}</span>
-                <span className="admin-recent-orders__product">{order.productName}</span>
-              </div>
-              <span className="admin-recent-orders__number">{order.orderNumber}</span>
               <div className="admin-recent-orders__thumb">
                 {order.productImage ? (
                   <img src={order.productImage} alt="" />
@@ -89,6 +83,15 @@ function Dashboard() {
                   <div className="admin-recent-orders__thumb--empty" />
                 )}
               </div>
+
+              <div className="admin-recent-orders__info">
+                <span className="admin-recent-orders__customer">{order.customerName}</span>
+                <span className="admin-recent-orders__product">{order.productName}</span>
+              </div>
+
+              <span className="admin-recent-orders__number">{order.orderNumber}</span>
+
+              <OrderStatusBadge status={order.status} />
             </li>
           ))}
         </ul>

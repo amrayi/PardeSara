@@ -9,6 +9,7 @@ import moreIcon from "../../assets/icons/more.png";
 import documentIcon from "../../assets/icons/document.png";
 import truckIcon from "../../assets/icons/truck.png";
 import checkCircleIcon from "../../assets/icons/check-circle.png";
+import Button from "../../components/ui/Button";
 
 const STATUS_ICON: Record<AdminOrderSummary["status"], string> = {
   pending: documentIcon,
@@ -47,31 +48,22 @@ function AdminOrders() {
           <h1>سفارشات</h1>
           <p>مدیریت و پیگیری سفارشات ثبت شده</p>
         </div>
-        <button className="admin-filter-btn" type="button">
+        <Button type="button" variant="secondary" size="sm" radius="md" className="admin-filter-btn">
           <img src={filterIcon} alt="" />
           فیلتر
-        </button>
+        </Button>
       </div>
 
       <div className="admin-table">
         {filteredOrders.map((order) => (
           <div key={order.id} className="admin-table__row">
-            <button className="admin-table__more" type="button">
-              <img src={moreIcon} alt="گزینه‌ها" />
-            </button>
-
-            <div className="admin-table__cell">
-              <OrderStatusBadge status={order.status} />
+            <div className="admin-table__icon">
+              <img src={STATUS_ICON[order.status]} alt="" />
             </div>
 
             <div className="admin-table__cell">
-              <span className="admin-table__label">مبلغ کل</span>
-              <span>{formatPrice(order.totalPrice)} تومان</span>
-            </div>
-
-            <div className="admin-table__cell">
-              <span className="admin-table__label">تاریخ ثبت</span>
-              <span>{order.createdAt}</span>
+              <span className="admin-table__label">شماره سفارش</span>
+              <span>{order.orderNumber}</span>
             </div>
 
             <div className="admin-table__cell">
@@ -80,31 +72,47 @@ function AdminOrders() {
             </div>
 
             <div className="admin-table__cell">
-              <span className="admin-table__label">شماره سفارش</span>
-              <span>{order.orderNumber}</span>
+              <span className="admin-table__label">تاریخ ثبت</span>
+              <span>{order.createdAt}</span>
             </div>
 
-            <div className="admin-table__icon">
-              <img src={STATUS_ICON[order.status]} alt="" />
+            <div className="admin-table__cell">
+              <span className="admin-table__label">مبلغ کل</span>
+              <span>{formatPrice(order.totalPrice)} تومان</span>
             </div>
+
+            <div className="admin-table__cell">
+              <OrderStatusBadge status={order.status} />
+            </div>
+
+            <button className="admin-more-dots" type="button" aria-label="گزینه‌ها">
+              <span /><span /><span />
+            </button>
           </div>
         ))}
       </div>
 
       <div className="admin-pagination">
-        <button type="button" onClick={() => setPage((p) => Math.max(1, p - 1))}>&lt;</button>
+        <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn" onClick={() => setPage((p) => Math.max(1, p - 1))}>
+          &lt;
+        </Button>
         {[1, 2, 3].map((p) => (
-          <button
+          <Button
             key={p}
             type="button"
-            className={p === page ? "admin-pagination__active" : ""}
+            variant={p === page ? "main" : "secondary"}
+            size="sm"
+            radius="sm"
+            className="admin-icon-btn"
             onClick={() => setPage(p)}
           >
             {p}
-          </button>
+          </Button>
         ))}
         <span>...</span>
-        <button type="button" onClick={() => setPage((p) => p + 1)}>&gt;</button>
+        <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn" onClick={() => setPage((p) => p + 1)}>
+          &gt;
+        </Button>
       </div>
     </div>
   );

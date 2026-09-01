@@ -5,6 +5,7 @@ import bellIcon from "../assets/icons/notif.png";
 import chevronDownIcon from "../assets/icons/down.png";
 import searchIcon from "../assets/icons/search.png";
 import "../styles/Admin.css";
+import Button from "../components/ui/Button";
 
 function AdminLayout() {
   const { user } = useAuth();
@@ -21,9 +22,9 @@ function AdminLayout() {
           </div>
 
           <div className="admin-topbar__actions">
-            <button className="admin-topbar__bell" type="button">
+            <Button type="button" variant="text" size="sm" radius="pill" className="admin-topbar__bell">
               <img src={bellIcon} alt="اعلان‌ها" />
-            </button>
+            </Button>
 
             <div className="admin-topbar__user">
               {user?.avatar ? (

@@ -41,3 +41,4 @@ export interface DashboardStats {
   totalRevenue: number;
   revenueMonthlyChangePercent: number;
 }
+

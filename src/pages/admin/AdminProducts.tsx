@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAdminProducts } from "../../services/adminService";
 import type { AdminProductListItem, StockStatus } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
+import Button from "../../components/ui/Button";
 import plusIcon from "../../assets/icons/plus.svg";
 import searchIcon from "../../assets/icons/search.png";
 import filterIcon from "../../assets/icons/Icon (22).png";
@@ -38,10 +39,10 @@ function AdminProducts() {
   return (
     <div className="admin-products">
       <div className="admin-page-header">
-        <button className="admin-add-btn" type="button">
+        <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
           <img src={plusIcon} alt="" />
           افزودن محصول
-        </button>
+        </Button>
         <div>
           <h1>محصولات</h1>
           <p>مدیریت لیست پرده‌ها و پارچه‌های موجود.</p>
@@ -61,36 +62,37 @@ function AdminProducts() {
 
         <div className="admin-products__categories">
           {CATEGORIES.map((cat) => (
-            <button
+            <Button
               key={cat}
               type="button"
-              className={`admin-chip ${activeCategory === cat ? "admin-chip--active" : ""}`}
+              variant={activeCategory === cat ? "main" : "secondary"}
+              size="sm"
+              radius="pill"
+              className="admin-chip"
               onClick={() => setActiveCategory(cat)}
             >
               {cat}
-            </button>
+            </Button>
           ))}
-          <button type="button" className="admin-filter-icon-btn">
+          <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn">
             <img src={filterIcon} alt="فیلتر" />
-          </button>
+          </Button>
         </div>
       </div>
 
       <div className="admin-table admin-table--products">
         {filteredProducts.map((product) => (
           <div key={product.id} className="admin-table__row">
-            <div className="admin-table__actions">
-              <button type="button" onClick={() => handleDelete(product.id)}>
-                <img src={trashIcon} alt="حذف" />
-              </button>
-              <button type="button" onClick={() => handleEdit(product.id)}>
-                <img src={editIcon} alt="ویرایش" />
-              </button>
-            </div>
-
-            <div className="admin-table__cell">
-              <span className="admin-table__label">قیمت هر متر</span>
-              <span>{formatPrice(product.pricePerMeter)} تومان</span>
+            <div className="admin-table__product">
+              {product.image ? (
+                <img src={product.image} alt="" className="admin-table__product-thumb" />
+              ) : (
+                <div className="admin-table__product-thumb admin-table__product-thumb--empty" />
+              )}
+              <div>
+                <span className="admin-table__product-name">{product.name}</span>
+                <span className="admin-table__product-category">دسته‌بندی: {product.category}</span>
+              </div>
             </div>
 
             <div className="admin-table__cell">
@@ -101,16 +103,18 @@ function AdminProducts() {
               </span>
             </div>
 
-            <div className="admin-table__product">
-              <div>
-                <span className="admin-table__product-name">{product.name}</span>
-                <span className="admin-table__product-category">دسته‌بندی: {product.category}</span>
-              </div>
-              {product.image ? (
-                <img src={product.image} alt="" className="admin-table__product-thumb" />
-              ) : (
-                <div className="admin-table__product-thumb admin-table__product-thumb--empty" />
-              )}
+            <div className="admin-table__cell">
+              <span className="admin-table__label">قیمت هر متر</span>
+              <span>{formatPrice(product.pricePerMeter)} تومان</span>
+            </div>
+
+            <div className="admin-table__actions">
+              <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn" onClick={() => handleEdit(product.id)}>
+                <img src={editIcon} alt="ویرایش" />
+              </Button>
+              <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn" onClick={() => handleDelete(product.id)}>
+                <img src={trashIcon} alt="حذف" />
+              </Button>
             </div>
           </div>
         ))}
