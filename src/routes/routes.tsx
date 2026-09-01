@@ -1,13 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import PublicLayout from "../layouts/PublicLayout";
+import AdminLayout from "../layouts/AdminLayout";
 import Home from "../pages/Home";
 import ProductList from "../pages/ProductList";
-import { RoleGuard } from "./roleGuard";
 import ProductDetail from "../pages/ProductDetail";
 import Login from "../pages/Login";
 import VerifyOtp from "../pages/VerifyOtp";
-import Cart from "../pages/Cart";
+import { RoleGuard } from "./roleGuard";
+
+import Dashboard from "../pages/admin/Dashboard";
+import AdminProducts from "../pages/admin/AdminProducts";
+import AdminOrders from "../pages/admin/AdminOrders";
+import AdminCustomers from "../pages/admin/AdminCustomers";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +27,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <PublicLayout />,
     children: [
-      {
+      { 
         index: true, 
         element: <Home /> 
       },
@@ -34,12 +39,7 @@ export const router = createBrowserRouter([
         path: "products/:slug", 
         element: <ProductDetail /> 
       },
-      { 
-        path: "cart", 
-        element: <Cart /> 
-      },
-      // بعداً: product/:slug, cart
-
+      // بعداً: cart, profile, orders (customer)
       // {
       //   element: <RoleGuard />,
       //   children: [
@@ -47,12 +47,33 @@ export const router = createBrowserRouter([
       //     { path: "orders", element: <Orders /> },
       //   ],
       // },
-      // {
-      //   element: <RoleGuard allowedRoles={["admin"]} />,
-      //   children: [
-      //     { path: "admin", element: <AdminLayout /> },
-      //   ],
-      // },
+    ],
+  },
+  {
+    element: <RoleGuard allowedRoles={["customer"]} />,
+    children: [
+      {
+        path: "/admin",
+        element: <AdminLayout />,
+        children: [
+          { 
+            index: true, 
+            element: <Dashboard /> 
+          },
+          { 
+            path: "products", 
+            element: <AdminProducts /> 
+          },
+          { 
+            path: "orders", 
+            element: <AdminOrders /> 
+          },
+          { 
+            path: "customers", 
+            element: <AdminCustomers /> 
+          },
+        ],
+      },
     ],
   },
 ]);
