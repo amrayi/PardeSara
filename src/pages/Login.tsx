@@ -6,7 +6,7 @@ import { loginSchema } from "../schemas/loginSchema";
 import { sendOtp } from "../services/authService";
 import phoneIcon from "../assets/icons/phone.png";
 import arrowDark from "../assets/icons/left.png";
-import arrowLight from "../assets/icons/Icon (10).png";
+import arrowLight from "../assets/icons/left-light.png";
 import "../styles/AuthForm.css";
 
 function Login() {
