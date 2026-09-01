@@ -12,6 +12,7 @@ import Cart from "../pages/Cart";
 import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminOrders from "../pages/admin/AdminOrders";
+import StoreSettings from "../pages/admin/StoreSettings";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
           { 
             path: "orders", 
             element: <AdminOrders /> 
+          },
+          { 
+            path: "store-detail", 
+            element: <StoreSettings /> 
           },
         ],
       },

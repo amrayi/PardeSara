@@ -9,7 +9,7 @@ const navItems = [
   { to: "/admin", label: "پیشخوان", icon: dashboardIcon, end: true },
   { to: "/admin/products", label: "محصولات", icon: productsIcon },
   { to: "/admin/orders", label: "سفارش‌ها", icon: ordersIcon },
-  { to: "/about", label: "اطلاعات فروشگاه", icon: store },
+  { to: "/admin/store-detail", label: "اطلاعات فروشگاه", icon: store },
 ];
 
 function AdminSidebar() {
