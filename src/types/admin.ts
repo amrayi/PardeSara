@@ -24,15 +24,6 @@ export interface AdminOrderSummary {
   status: OrderStatus;
 }
 
-export interface AdminCustomer {
-  id: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  avatar?: string;
-  ordersCount: number;
-}
-
 export interface DashboardStats {
   activeProductsCount: number;
   lowStockCount: number;

@@ -1,7 +1,6 @@
 import type {
   AdminProductListItem,
   AdminOrderSummary,
-  AdminCustomer,
   DashboardStats,
 } from "../types/admin";
 // وقتی API آماده شد:
@@ -31,13 +30,6 @@ const mockOrders: AdminOrderSummary[] = [
   { id: "3", orderNumber: "#ORD-2024-003", customerName: "رضا کریمی", totalPrice: 24000000, createdAt: "1402/08/10 - 09:15", status: "delivered" },
 ];
 
-const mockCustomers: AdminCustomer[] = [
-  { id: "1", fullName: "علی محمدی", email: "ali.mohammadi@example.com", phone: "09123456789", ordersCount: 12 },
-  { id: "2", fullName: "سارا احمدی", email: "sara.ahmadi@example.com", phone: "09312334567", ordersCount: 5 },
-  { id: "3", fullName: "مریم رضایی", email: "m.rezaei@example.com", phone: "09298765443", ordersCount: 24 },
-  { id: "4", fullName: "رضا کریمی", email: "reza.k@example.com", phone: "09197654321", ordersCount: 1 },
-];
-
 const mockProducts: AdminProductListItem[] = [
   { id: "1", slug: "harir-baftdar-alghans", name: "پرده حریر بافت‌دار الگانس", category: "حریر مینیمال", pricePerMeter: 850000, stockStatus: "in_stock", stockMeters: 45, image: "" },
   { id: "2", slug: "makhmal-zoghali", name: "مخمل ضخیم کلاسیک زغالی", category: "مخمل", pricePerMeter: 1200000, stockStatus: "low_stock", stockMeters: 5, image: "" },
@@ -59,10 +51,6 @@ export async function getAdminOrders(): Promise<AdminOrderSummary[]> {
   return mockOrders;
 }
 
-export async function getAdminCustomers(): Promise<AdminCustomer[]> {
-  await new Promise((r) => setTimeout(r, SIMULATED_DELAY));
-  return mockCustomers;
-}
 
 export async function getAdminProducts(categoryFilter?: string): Promise<AdminProductListItem[]> {
   await new Promise((r) => setTimeout(r, SIMULATED_DELAY));

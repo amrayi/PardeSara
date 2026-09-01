@@ -12,7 +12,6 @@ import { RoleGuard } from "./roleGuard";
 import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminOrders from "../pages/admin/AdminOrders";
-import AdminCustomers from "../pages/admin/AdminCustomers";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +49,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    element: <RoleGuard allowedRoles={["customer"]} />,
+    element: <RoleGuard allowedRoles={["customer"]} />, // in ro admin kon
     children: [
       {
         path: "/admin",
@@ -67,10 +66,6 @@ export const router = createBrowserRouter([
           { 
             path: "orders", 
             element: <AdminOrders /> 
-          },
-          { 
-            path: "customers", 
-            element: <AdminCustomers /> 
           },
         ],
       },
