@@ -1,16 +1,15 @@
 import { NavLink } from "react-router-dom";
-import Button from "../ui/Button";
 import dashboardIcon from "../../assets/icons/dashboard.png";
 import productsIcon from "../../assets/icons/box.png";
 import ordersIcon from "../../assets/icons/order.png";
-import customersIcon from "../../assets/icons/profile.png";
-import settingsIcon from "../../assets/icons/setting.png";
+import store from "../../assets/icons/store.png";
+import Button from "../ui/Button";
 
 const navItems = [
   { to: "/admin", label: "پیشخوان", icon: dashboardIcon, end: true },
   { to: "/admin/products", label: "محصولات", icon: productsIcon },
   { to: "/admin/orders", label: "سفارش‌ها", icon: ordersIcon },
-  { to: "/admin/customers", label: "مشتریان", icon: customersIcon },
+  { to: "/about", label: "اطلاعات فروشگاه", icon: store },
 ];
 
 function AdminSidebar() {
@@ -33,17 +32,6 @@ function AdminSidebar() {
           </NavLink>
         ))}
       </nav>
-
-      <Button
-        type="button"
-        variant="text"
-        size="sm"
-        radius="sm"
-        className="admin-sidebar__settings"
-      >
-        <img src={settingsIcon} alt="" />
-        <span>تنظیمات</span>
-      </Button>
     </aside>
   );
 }
