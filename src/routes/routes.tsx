@@ -45,18 +45,16 @@ export const router = createBrowserRouter([
         path: "cart", 
         element: <Cart /> 
       },
-      { 
-        path: "user/profile", 
-        element: <Profile /> 
+      {
+        element: <RoleGuard />,
+        children: [
+          { 
+            path: "profile", 
+            element: <Profile /> 
+          },
+//           { path: "orders", element: <Orders /> },
+        ],
       },
-      // بعداً: cart, profile, orders (customer)
-      // {
-      //   element: <RoleGuard />,
-      //   children: [
-      //     { path: "profile", element: <Profile /> },
-      //     { path: "orders", element: <Orders /> },
-      //   ],
-      // },
     ],
   },
   {
