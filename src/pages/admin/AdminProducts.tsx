@@ -10,7 +10,7 @@ import filterIcon from "../../assets/icons/filter.png";
 import editIcon from "../../assets/icons/edit.png";
 import trashIcon from "../../assets/icons/delete.png";
 
-const CATEGORIES = ["همه", "کتان", "مخمل", "حریر"];
+const CATEGORIES = ["همه", "اتاق خواب", "پذیرایی", "شید", "زبرا", "شب و روز", "کرکره فلزی"];
 
 const STOCK_LABEL: Record<StockStatus, string> = {
   in_stock: "موجود",
