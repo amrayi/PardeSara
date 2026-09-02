@@ -13,6 +13,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminOrders from "../pages/admin/AdminOrders";
 import StoreSettings from "../pages/admin/StoreSettings";
+import ProductForm from "../pages/admin/ProductForm";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
           { 
             path: "store-detail", 
             element: <StoreSettings /> 
+          },
+          { 
+            path: "add-product", 
+            element: <ProductForm /> 
           },
         ],
       },

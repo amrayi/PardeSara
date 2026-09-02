@@ -33,13 +33,15 @@ function Dashboard() {
           <h1>خلاصه وضعیت</h1>
           <p>امروز {new Date().toLocaleDateString("fa-IR", { weekday: "long", day: "numeric", month: "long" })}</p>
         </div>
-        <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
-          <span className="btn-icon-swap">
-            <img src={plusIcon_light} alt="" className="btn-icon-swap__light"/>
-            <img src={plusIcon_dark} alt="" className="btn-icon-swap__dark"/>
-          </span>
-          افزودن محصول
-        </Button>
+        <a href="/admin/add-product">
+          <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
+            <span className="btn-icon-swap">
+              <img src={plusIcon_light} alt="" className="btn-icon-swap__light"/>
+              <img src={plusIcon_dark} alt="" className="btn-icon-swap__dark"/>
+            </span>
+            افزودن محصول
+          </Button>
+          </a>
       </div>
 
       <div className="stat-cards-grid">
