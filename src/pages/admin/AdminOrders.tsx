@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import OrderStatusBadge from "../../components/admin/OrderStatusBadge";
+import OrderStatusBadge from "../../components/OrderStatusBadge";
 import { getAdminOrders } from "../../services/adminService";
 import type { AdminOrderSummary } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
 import searchIcon from "../../assets/icons/search.png";
 import filterIcon from "../../assets/icons/filter.png";
-import moreIcon from "../../assets/icons/more.png";
 import documentIcon from "../../assets/icons/document.png";
 import truckIcon from "../../assets/icons/truck.png";
 import checkCircleIcon from "../../assets/icons/check-circle.png";
@@ -19,22 +18,41 @@ const STATUS_ICON: Record<AdminOrderSummary["status"], string> = {
   cancelled: documentIcon,
 };
 
+const STATUS_FILTERS = ["همه", "در انتظار بررسی", "ارسال شده", "تحویل شده"];
+
+const STATUS_MAP: Record<string, AdminOrderSummary["status"] | null> = {
+  "همه": null,
+  "در انتظار بررسی": "pending",
+  "ارسال شده": "shipped",
+  "تحویل شده": "delivered",
+};
+
 function AdminOrders() {
   const [orders, setOrders] = useState<AdminOrderSummary[]>([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [activeStatus, setActiveStatus] = useState("همه");
 
   useEffect(() => {
     getAdminOrders().then(setOrders);
   }, []);
 
-  const filteredOrders = orders.filter(
-    (o) => o.customerName.includes(search) || o.orderNumber.includes(search)
-  );
+  const filteredOrders = orders.filter((o) => {
+    const matchesSearch = o.customerName.includes(search) || o.orderNumber.includes(search);
+    const selectedStatus = STATUS_MAP[activeStatus];
+    const matchesStatus = selectedStatus === null || o.status === selectedStatus;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="admin-orders">
       <div className="admin-page-header">
+        <div>
+          <h1>سفارشات</h1>
+          <p>مدیریت و پیگیری سفارشات ثبت شده</p>
+        </div>
+      </div>
+      <div className="admin-orders__toolbar">
         <div className="admin-search-bar">
           <img src={searchIcon} alt="" />
           <input
@@ -44,14 +62,24 @@ function AdminOrders() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div>
-          <h1>سفارشات</h1>
-          <p>مدیریت و پیگیری سفارشات ثبت شده</p>
+        <div className="admin-products__categories">
+          {STATUS_FILTERS.map((status) => (
+            <Button
+              key={status}
+              type="button"
+              variant={activeStatus === status ? "main" : "secondary"}
+              size="sm"
+              radius="pill"
+              className="admin-chip"
+              onClick={() => setActiveStatus(status)}
+            >
+              {status}
+            </Button>
+          ))}
+          <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn">
+            <img src={filterIcon} alt="فیلتر" />
+          </Button>
         </div>
-        <Button type="button" variant="secondary" size="sm" radius="md" className="admin-filter-btn">
-          <img src={filterIcon} alt="" />
-          فیلتر
-        </Button>
       </div>
 
       <div className="admin-table">

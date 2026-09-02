@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import StatCard from "../../components/admin/StatCard";
-import OrderStatusBadge from "../../components/admin/OrderStatusBadge";
+import OrderStatusBadge from "../../components/OrderStatusBadge";
 import { getDashboardStats, getRecentOrders } from "../../services/adminService";
 import type { DashboardStats, AdminOrderSummary } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
+import Button from "../../components/ui/Button";
 import boxIcon from "../../assets/icons/box.png";
 import truckIcon from "../../assets/icons/truck.png";
 import walletIcon from "../../assets/icons/cash.png";
-import plusIcon from "../../assets/icons/plus.svg";
+import plusIcon_light from "../../assets/icons/plus.svg";
+import plusIcon_dark from "../../assets/icons/plus-dark.png";
 
 function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -27,14 +29,19 @@ function Dashboard() {
   return (
     <div className="admin-dashboard">
       <div className="admin-page-header">
-        <button className="admin-add-btn" type="button">
-          <img src={plusIcon} alt="" />
-          افزودن محصول
-        </button>
         <div>
           <h1>خلاصه وضعیت</h1>
           <p>امروز {new Date().toLocaleDateString("fa-IR", { weekday: "long", day: "numeric", month: "long" })}</p>
         </div>
+        <a href="/admin/add-product">
+          <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
+            <span className="btn-icon-swap">
+              <img src={plusIcon_light} alt="" className="btn-icon-swap__light"/>
+              <img src={plusIcon_dark} alt="" className="btn-icon-swap__dark"/>
+            </span>
+            افزودن محصول
+          </Button>
+          </a>
       </div>
 
       <div className="stat-cards-grid">

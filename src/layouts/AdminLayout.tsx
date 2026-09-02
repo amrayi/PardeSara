@@ -1,9 +1,7 @@
 import { Outlet } from "react-router-dom";
 import AdminSidebar from "../components/admin/AdminSidebar";
 import { useAuth } from "../context/AuthContext";
-import bellIcon from "../assets/icons/notif.png";
 import chevronDownIcon from "../assets/icons/down.png";
-import searchIcon from "../assets/icons/search.png";
 import "../styles/Admin.css";
 import Button from "../components/ui/Button";
 
@@ -16,15 +14,10 @@ function AdminLayout() {
 
       <div className="admin-main">
         <header className="admin-topbar">
-          <div className="admin-topbar__search">
-            <input type="text" placeholder="جستجو..." />
-            <img src={searchIcon} alt="" />
-          </div>
-
           <div className="admin-topbar__actions">
-            <Button type="button" variant="text" size="sm" radius="pill" className="admin-topbar__bell">
+            {/* <Button type="button" variant="text" size="sm" radius="pill" className="admin-topbar__bell">
               <img src={bellIcon} alt="اعلان‌ها" />
-            </Button>
+            </Button> */}
 
             <div className="admin-topbar__user">
               {user?.avatar ? (
@@ -38,7 +31,7 @@ function AdminLayout() {
                 <span className="admin-topbar__user-name">{user?.fullName}</span>
                 <span className="admin-topbar__user-role">مدیر سیستم</span>
               </div>
-              <img src={chevronDownIcon} alt="" />
+              <img src={chevronDownIcon} alt=""/>
             </div>
           </div>
         </header>

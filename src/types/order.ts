@@ -4,7 +4,9 @@ export type OrderStatus = "pending" | "processing" | "shipped" | "delivered" | "
 
 export interface Order {
   id: string;
+  orderNumber: string;
   items: CartItem[];
+  itemsCount: number;
   totalPrice: number;
   status: OrderStatus;
   createdAt: string;

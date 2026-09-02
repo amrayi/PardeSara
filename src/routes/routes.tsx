@@ -12,7 +12,9 @@ import Cart from "../pages/Cart";
 import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminOrders from "../pages/admin/AdminOrders";
-import AdminCustomers from "../pages/admin/AdminCustomers";
+import StoreSettings from "../pages/admin/StoreSettings";
+import ProductForm from "../pages/admin/ProductForm";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -43,18 +45,20 @@ export const router = createBrowserRouter([
         path: "cart", 
         element: <Cart /> 
       },
-      // بعداً: cart, profile, orders (customer)
-      // {
-      //   element: <RoleGuard />,
-      //   children: [
-      //     { path: "profile", element: <Profile /> },
-      //     { path: "orders", element: <Orders /> },
-      //   ],
-      // },
+      {
+        element: <RoleGuard />,
+        children: [
+          { 
+            path: "profile", 
+            element: <Profile /> 
+          },
+//           { path: "orders", element: <Orders /> },
+        ],
+      },
     ],
   },
   {
-    element: <RoleGuard allowedRoles={["customer"]} />,
+    element: <RoleGuard allowedRoles={["customer"]} />, // in ro admin kon
     children: [
       {
         path: "/admin",
@@ -73,8 +77,12 @@ export const router = createBrowserRouter([
             element: <AdminOrders /> 
           },
           { 
-            path: "customers", 
-            element: <AdminCustomers /> 
+            path: "store-detail", 
+            element: <StoreSettings /> 
+          },
+          { 
+            path: "add-product", 
+            element: <ProductForm /> 
           },
         ],
       },

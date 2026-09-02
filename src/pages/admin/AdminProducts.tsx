@@ -3,13 +3,14 @@ import { getAdminProducts } from "../../services/adminService";
 import type { AdminProductListItem, StockStatus } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
 import Button from "../../components/ui/Button";
-import plusIcon from "../../assets/icons/plus.svg";
+import plusIcon_light from "../../assets/icons/plus.svg";
+import plusIcon_dark from "../../assets/icons/plus-dark.png";
 import searchIcon from "../../assets/icons/search.png";
-import filterIcon from "../../assets/icons/Icon (22).png";
+import filterIcon from "../../assets/icons/filter.png";
 import editIcon from "../../assets/icons/edit.png";
 import trashIcon from "../../assets/icons/delete.png";
 
-const CATEGORIES = ["همه", "کتان", "مخمل", "حریر"];
+const CATEGORIES = ["همه", "اتاق خواب", "پذیرایی", "شید", "زبرا", "شب و روز", "کرکره فلزی"];
 
 const STOCK_LABEL: Record<StockStatus, string> = {
   in_stock: "موجود",
@@ -39,14 +40,19 @@ function AdminProducts() {
   return (
     <div className="admin-products">
       <div className="admin-page-header">
-        <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
-          <img src={plusIcon} alt="" />
-          افزودن محصول
-        </Button>
         <div>
           <h1>محصولات</h1>
           <p>مدیریت لیست پرده‌ها و پارچه‌های موجود.</p>
         </div>
+        <a href="/admin/add-product">
+          <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
+            <span className="btn-icon-swap">
+              <img src={plusIcon_light} alt="" className="btn-icon-swap__light"/>
+              <img src={plusIcon_dark} alt="" className="btn-icon-swap__dark"/>
+            </span>
+            افزودن محصول
+          </Button>
+        </a>
       </div>
 
       <div className="admin-products__toolbar">
@@ -54,7 +60,7 @@ function AdminProducts() {
           <img src={searchIcon} alt="" />
           <input
             type="text"
-            placeholder="جستجو در محصولات..."
+            placeholder="جستجو در محصولات ..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
