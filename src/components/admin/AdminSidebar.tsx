@@ -15,7 +15,9 @@ const navItems = [
 function AdminSidebar() {
   return (
     <aside className="admin-sidebar">
-      <div className="admin-sidebar__brand">پرده‌سرا</div>
+      <a href="/">
+        <div className="admin-sidebar__brand">پرده‌سرا</div>
+      </a>
 
       <nav className="admin-sidebar__nav">
         {navItems.map((item) => (

@@ -14,6 +14,10 @@
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 .admin-sidebar__brand {
