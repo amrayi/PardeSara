@@ -14,6 +14,7 @@ import AdminProducts from "../pages/admin/AdminProducts";
 import AdminOrders from "../pages/admin/AdminOrders";
 import StoreSettings from "../pages/admin/StoreSettings";
 import ProductForm from "../pages/admin/ProductForm";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       { 
         path: "cart", 
         element: <Cart /> 
+      },
+      { 
+        path: "user/profile", 
+        element: <Profile /> 
       },
       // بعداً: cart, profile, orders (customer)
       // {

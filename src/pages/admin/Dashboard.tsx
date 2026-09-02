@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StatCard from "../../components/admin/StatCard";
-import OrderStatusBadge from "../../components/admin/OrderStatusBadge";
+import OrderStatusBadge from "../../components/OrderStatusBadge";
 import { getDashboardStats, getRecentOrders } from "../../services/adminService";
 import type { DashboardStats, AdminOrderSummary } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";

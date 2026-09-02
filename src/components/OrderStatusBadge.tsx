@@ -1,4 +1,4 @@
-import type { OrderStatus } from "../../types/order";
+import type { OrderStatus } from "../types/order";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   pending: "در انتظار بررسی",
@@ -10,7 +10,7 @@ const STATUS_LABEL: Record<OrderStatus, string> = {
 
 const STATUS_CLASS: Record<OrderStatus, string> = {
   pending: "status-badge--pending",
-  processing: "status-badge--pending",
+  processing: "status-badge--processing",
   shipped: "status-badge--shipped",
   delivered: "status-badge--delivered",
   cancelled: "status-badge--cancelled",

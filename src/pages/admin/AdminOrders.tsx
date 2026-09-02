@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import OrderStatusBadge from "../../components/admin/OrderStatusBadge";
+import OrderStatusBadge from "../../components/OrderStatusBadge";
 import { getAdminOrders } from "../../services/adminService";
 import type { AdminOrderSummary } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
