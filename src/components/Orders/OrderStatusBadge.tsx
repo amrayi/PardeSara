@@ -1,4 +1,4 @@
-import type { OrderStatus } from "../types/order";
+import type { OrderStatus } from "../../types/order";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   pending: "در انتظار بررسی",

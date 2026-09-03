@@ -1,4 +1,5 @@
 import type { CartItem } from "./cart";
+import type { ShippingInfo } from "./checkout";
 
 export type OrderStatus = "pending" | "processing" | "shipped" | "delivered" | "cancelled";
 
@@ -11,4 +12,5 @@ export interface Order {
   status: OrderStatus;
   createdAt: string;
   userId: string;
+  shippingInfo: ShippingInfo;
 }

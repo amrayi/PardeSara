@@ -15,6 +15,7 @@ import AdminOrders from "../pages/admin/AdminOrders";
 import StoreSettings from "../pages/admin/StoreSettings";
 import ProductForm from "../pages/admin/ProductForm";
 import Profile from "../pages/Profile";
+import OrderDetail from "../pages/OrderDetail";
 
 export const router = createBrowserRouter([
   {
@@ -52,7 +53,10 @@ export const router = createBrowserRouter([
             path: "user/profile", 
             element: <Profile /> 
           },
-//           { path: "orders", element: <Orders /> },
+          { 
+            path: "orders/:orderId", 
+            element: <OrderDetail /> 
+          },
         ],
       },
     ],

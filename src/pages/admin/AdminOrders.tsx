@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import OrderStatusBadge from "../../components/OrderStatusBadge";
+import { Link } from "react-router-dom";
+import OrderStatusBadge from "../../components/Orders/OrderStatusBadge";
 import { getAdminOrders } from "../../services/adminService";
 import type { AdminOrderSummary } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
@@ -84,7 +85,7 @@ function AdminOrders() {
 
       <div className="admin-table">
         {filteredOrders.map((order) => (
-          <div key={order.id} className="admin-table__row">
+          <Link key={order.id} to={`/orders/${order.id}`} className="admin-table__row">
             <div className="admin-table__icon">
               <img src={STATUS_ICON[order.status]} alt="" />
             </div>
@@ -106,17 +107,25 @@ function AdminOrders() {
 
             <div className="admin-table__cell">
               <span className="admin-table__label">مبلغ کل</span>
-              <span>{formatPrice(order.totalPrice)} تومان</span>
+              <span>{formatPrice(order.totalPrice)}</span>
             </div>
 
             <div className="admin-table__cell">
               <OrderStatusBadge status={order.status} />
             </div>
 
-            <button className="admin-more-dots" type="button" aria-label="گزینه‌ها">
+            <button
+              className="admin-more-dots"
+              type="button"
+              aria-label="گزینه‌ها"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
               <span /><span /><span />
             </button>
-          </div>
+          </Link>
         ))}
       </div>
 
