@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import Button from "../components/ui/Button";
-import MyOrderRow from "../components/MyOrderRow";
+import MyOrderRow from "../components/Orders/MyOrderRow";
 import { profileSchema } from "../schemas/profileSchema";
 import { getProfile, updateProfile } from "../services/profileService";
 import { getMyOrders } from "../services/orderService";
