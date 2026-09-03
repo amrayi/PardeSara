@@ -89,7 +89,7 @@ function ProductDetail() {
           <nav className="product-detail__breadcrumb">
             <Link to="/products">پرده‌ها</Link>
             <span>{" > "}</span>
-            <span>{product.category}</span>
+            <span>{product.categoryId}</span>
           </nav>
 
           <h1 className="product-detail__title">{product.title}</h1>

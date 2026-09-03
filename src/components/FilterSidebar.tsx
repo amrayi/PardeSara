@@ -1,44 +1,50 @@
+import { priceRanges } from "../data/priceRange";
+import { productCategories } from "../data/mockProductFormOptions";
 import "../styles/FilterSidebar.css";
 
-// TODO: این کامپوننت فعلاً static است.
-// در تسک جداگانه باید state فیلترها بالا بیاد (یا با useState یا با URL searchParams)
-// و onChange هر گزینه، لیست محصولات رو دوباره فچ/فیلتر کنه.
+interface FilterSidebarProps {
+  selectedPriceRangeIds: string[];
+  selectedCategoryIds: string[];
+  onTogglePriceRange: (id: string) => void;
+  onToggleCategory: (id: string) => void;
+}
 
-function FilterSidebar() {
+function FilterSidebar({
+  selectedPriceRangeIds,
+  selectedCategoryIds,
+  onTogglePriceRange,
+  onToggleCategory,
+}: FilterSidebarProps) {
   return (
     <aside className="filter-sidebar">
       <h3 className="filter-sidebar__title">فیلترها</h3>
 
       <div className="filter-sidebar__group">
         <h4 className="filter-sidebar__group-title">محدوده قیمت (تومان)</h4>
-        <label className="filter-sidebar__option">
-          <span>زیر ۱,۰۰۰,۰۰۰</span>
-          <input type="checkbox" />
-        </label>
-        <label className="filter-sidebar__option">
-          <span>۱,۰۰۰,۰۰۰ تا ۳,۰۰۰,۰۰۰</span>
-          <input type="checkbox" />
-        </label>
-        <label className="filter-sidebar__option">
-          <span>بالای ۳,۰۰۰,۰۰۰</span>
-          <input type="checkbox" />
-        </label>
+        {priceRanges.map((range) => (
+          <label key={range.id} className="filter-sidebar__option">
+            <span>{range.label}</span>
+            <input
+              type="checkbox"
+              checked={selectedPriceRangeIds.includes(range.id)}
+              onChange={() => onTogglePriceRange(range.id)}
+            />
+          </label>
+        ))}
       </div>
 
       <div className="filter-sidebar__group">
-        <h4 className="filter-sidebar__group-title">جنس پارچه</h4>
-        <label className="filter-sidebar__option">
-          <span>حریر</span>
-          <input type="checkbox" />
-        </label>
-        <label className="filter-sidebar__option">
-          <span>مخمل</span>
-          <input type="checkbox" />
-        </label>
-        <label className="filter-sidebar__option">
-          <span>کتان</span>
-          <input type="checkbox" />
-        </label>
+        <h4 className="filter-sidebar__group-title">دسته‌بندی</h4>
+        {productCategories.map((category) => (
+          <label key={category.id} className="filter-sidebar__option">
+            <span>{category.name}</span>
+            <input
+              type="checkbox"
+              checked={selectedCategoryIds.includes(category.id)}
+              onChange={() => onToggleCategory(category.id)}
+            />
+          </label>
+        ))}
       </div>
     </aside>
   );
