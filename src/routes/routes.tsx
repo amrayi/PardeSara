@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
         element: <RoleGuard />,
         children: [
           { 
-            path: "profile", 
+            path: "user/profile", 
             element: <Profile /> 
           },
 //           { path: "orders", element: <Orders /> },
