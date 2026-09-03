@@ -1,22 +1,18 @@
-export type FabricType = "حریر" | "مخمل" | "کتان";
-
 export interface Product {
   id: string;
   title: string;
   slug: string;
   price: number;
   image: string;
-  fabricType: FabricType;
-  category: string;
+  categoryId: string;
   stock: number;
   description?: string;
   colorName?: string;
 }
 
 export interface ProductFilters {
-  minPrice?: number;
-  maxPrice?: number;
-  fabricTypes?: FabricType[];
+  priceRangeIds?: string[];
+  categoryIds?: string[];
 }
 
 // ---- نوع‌های مخصوص صفحه جزئیات محصول ----

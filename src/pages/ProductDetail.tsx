@@ -89,7 +89,7 @@ function ProductDetail() {
           <nav className="product-detail__breadcrumb">
             <Link to="/products">پرده‌ها</Link>
             <span>{" > "}</span>
-            <span>{product.category}</span>
+            <span>{product.categoryId}</span>
           </nav>
 
           <h1 className="product-detail__title">{product.title}</h1>
@@ -122,20 +122,9 @@ function ProductDetail() {
           </div>
 
           <div className="product-detail__actions">
-            <button
-              type="button"
-              className={`product-detail__favorite ${
-                isFavorite ? "product-detail__favorite--active" : ""
-              }`}
-              onClick={() => setIsFavorite((prev) => !prev)}
-              aria-label="افزودن به علاقه‌مندی‌ها"
-            >
-              {isFavorite ? "♥" : "♡"}
-            </button>
-
             <Button
               variant="main"
-              size="sm"
+              size="md"
               radius="md"
               className="product-detail__add-to-cart"
               onClick={handleAddToCart}
