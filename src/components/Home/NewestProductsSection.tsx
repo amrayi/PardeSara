@@ -4,7 +4,7 @@ import FeaturedProductCard from "./FeaturedProductCard";
 import { getNewestProducts } from "../../services/productService";
 import type { Product } from "../../types/product";
 import "../../styles/Home.css";
-import icon from '../../assets/icons/left.png';
+import icon from '../../assets/icons/left-light.png';
 
 function NewestProductsSection() {
   const [products, setProducts] = useState<Product[]>([]);
