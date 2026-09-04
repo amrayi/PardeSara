@@ -16,6 +16,7 @@ import StoreSettings from "../pages/admin/StoreSettings";
 import ProductForm from "../pages/admin/ProductForm";
 import Profile from "../pages/Profile";
 import OrderDetail from "../pages/OrderDetail";
+import AboutUs from "../pages/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       { 
         path: "cart", 
         element: <Cart /> 
+      },
+      { 
+        path: "about-us", 
+        element: <AboutUs /> 
       },
       {
         element: <RoleGuard />,

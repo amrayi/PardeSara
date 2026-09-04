@@ -1,0 +1,159 @@
+.about-us-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Hero */
+.about-us__hero {
+  background-color: var(--color-bg-detail);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-us__logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.about-us__title {
+  color: var(--color-title);
+  font-size: 26px;
+  margin: 0 0 24px;
+}
+
+.about-us__paragraph {
+  color: var(--color-text-primary);
+  font-size: 15px;
+  line-height: 2;
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+
+.about-us__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Achievements */
+.about-us__achievements {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.about-us__achievement-card {
+  background-color: var(--color-bg-section);
+  border: 2px solid var(--color-border);
+  border-radius: 14px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.about-us__achievement-value {
+  color: var(--color-accent);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.about-us__achievement-label {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* Contact */
+.about-us__contact {
+  background-color: var(--color-bg-detail);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 50px;
+}
+
+.about-us__contact-title {
+  color: var(--color-title);
+  font-size: 18px;
+  margin: 0 0 20px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.about-us__contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.about-us__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: var(--color-bg-items);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.about-us__contact-item--full {
+  grid-column: 1 / -1;
+}
+
+.about-us__contact-item img {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.about-us__contact-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-us__contact-label {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.about-us__contact-value {
+  color: var(--color-title);
+  font-size: 14px;
+}
+
+.about-us__status {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+@media (max-width: 700px) {
+  .about-us__achievements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-us__contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-us__contact-item--full {
+    grid-column: auto;
+  }
+
+  .about-us__hero {
+    padding: 32px 20px;
+  }
+}
