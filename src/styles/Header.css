@@ -1,22 +1,44 @@
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-height);
-  padding: 0 var(--header-padding-x);
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  border-bottom: 1px solid var(--color-border);
+  height: var(--header-height, 72px);
+   padding: 0 var(--header-padding-x, 60px);
+  background-color: var(--color-bg, #0f0f0f);
+  color: var(--color-text-primary, #ffffff);
+  border-bottom: 1px solid var(--color-border, #2a2a2a);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.header--hidden {
+  transform: translateY(-100%);
+}
+
+.header--menu-open {
+  background-color: var(--color-bg, #0f0f0f);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .header__brand {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   justify-content: flex-start;
 }
 
+.header__brand a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .header__brand span {
-  font-size: var(--font-size-brand);
+  font-size: var(--font-size-brand, 22px);
   font-weight: 700;
   letter-spacing: -0.5px;
 }
@@ -30,45 +52,49 @@
 .header__nav-list {
   display: flex;
   align-items: center;
-  gap: var(--nav-gap);
+  gap: var(--nav-gap, 32px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .header__nav-link {
   position: relative;
-  font-size: var(--font-size-nav);
-  color: var(--color-text-muted);
+  font-size: var(--font-size-nav, 15px);
+  color: var(--color-text-muted, #b0b0b0);
+  text-decoration: none;
   transition: color 0.25s ease, font-size 0.25s ease;
-  padding-bottom: var(--underline-offset);
+  padding-bottom: var(--underline-offset, 4px);
 }
 
 .header__nav-link:hover {
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, #ffffff);
 }
 
 .header__nav-link--active {
-  font-size: var(--font-size-nav-active);
-  color: var(--color-text-primary);
+  font-size: var(--font-size-nav-active, 17px);
+  color: var(--color-text-primary, #ffffff);
   font-weight: 600;
 }
 
 .header__nav-link--active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   right: 50%;
   transform: translateX(50%);
-  width: var(--underline-width);
-  height: var(--underline-height);
-  background-color: var(--color-underline);
+  width: var(--underline-width, 24px);
+  height: var(--underline-height, 2px);
+  background-color: var(--color-underline, #ffffff);
   border-radius: 2px;
 }
 
 .header__actions {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--icon-gap);
+  gap: var(--icon-gap, 16px);
 }
 
 .header__icon-btn {
@@ -79,14 +105,176 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .header__icon-btn:hover {
   opacity: 0.75;
+  transform: translateY(-1px);
 }
 
 .header__icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
+  width: var(--icon-size, 24px);
+  height: var(--icon-size, 24px);
+  display: block;
+}
+
+/* ============================================
+   همبرگر منو (فقط موبایل)
+   ============================================ */
+.header__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: 8px;
+}
+
+.header__hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-text-primary, #ffffff);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+/* انیمیشن تبدیل به ضربدر */
+.header__hamburger-line--open-1 {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header__hamburger-line--open-2 {
+  opacity: 0;
+}
+
+.header__hamburger-line--open-3 {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================
+   Drawer منوی موبایل
+   ============================================ */
+.header__drawer {
+  position: fixed;
+  top: var(--header-height, 72px);
+  right: 0;
+  width: min(320px, 85vw);
+  height: calc(100vh - var(--header-height, 72px));
+  background-color: var(--color-bg, #0f0f0f);
+  border-right: 1px solid var(--color-border, #2a2a2a);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+  overflow-y: auto;
+  padding: 24px 0;
+}
+
+.header__drawer--open {
+  transform: translateX(0);
+}
+
+.header__drawer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.header__drawer-item {
+  border-bottom: 1px solid var(--color-border, #2a2a2a);
+}
+
+.header__drawer-item:last-child {
+  border-bottom: none;
+}
+
+.header__drawer-link {
+  display: block;
+  padding: 18px 32px;
+  font-size: 16px;
+  color: var(--color-text-muted, #b0b0b0);
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.header__drawer-link:hover,
+.header__drawer-link--active {
+  color: var(--color-text-primary, #ffffff);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.header__drawer-link--active {
+  font-weight: 600;
+  border-right: 3px solid var(--color-underline, #ffffff);
+}
+
+/* ============================================
+   Overlay
+   ============================================ */
+.header__overlay {
+  position: fixed;
+  inset: 0;
+  top: var(--header-height, 72px);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 998;
+  animation: headerOverlayFade 0.3s ease forwards;
+}
+
+@keyframes headerOverlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   ریسپانسیو: موبایل
+   ============================================ */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 20px;
+  }
+
+  /* مخفی کردن لوگو و ناوبری دسکتاپ */
+  .header__brand {
+    display: none;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  /* نمایش همبرگر */
+  .header__hamburger {
+    display: flex;
+  }
+
+  /* در RTL: همبرگر سمت راست (flex-start) */
+  .header {
+    flex-direction: row-reverse;
+  }
+
+  .header__actions {
+    flex: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__icon {
+    width: 22px;
+    height: 22px;
+  }
 }

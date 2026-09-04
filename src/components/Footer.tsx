@@ -5,7 +5,6 @@ const footerLinks = [
   { label: 'تماس با ما',     path: '/contact' },
   { label: 'سوالات متداول',  path: '/faq' },
   { label: 'قوانین و مقررات', path: '/terms' },
-  { label: 'ارسال و بازگشت', path: '/returns' },
 ];
 
 export default function Footer() {
