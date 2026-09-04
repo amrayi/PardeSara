@@ -3,7 +3,7 @@ import dashboardIcon from "../../assets/icons/dashboard.png";
 import productsIcon from "../../assets/icons/box.png";
 import ordersIcon from "../../assets/icons/order.png";
 import store from "../../assets/icons/store.png";
-import Button from "../ui/Button";
+// import Button from "../ui/Button";
 
 const navItems = [
   { to: "/admin", label: "پیشخوان", icon: dashboardIcon, end: true },

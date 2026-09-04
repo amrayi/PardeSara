@@ -24,7 +24,13 @@ function StoreSettings() {
     onSubmit: async (values, { setSubmitting, setStatus }) => {
       setStatus(undefined);
       try {
-        // TODO: وقتی API آماده شد، اول logoFile آپلود میشه و logoUrl واقعی برمی‌گرده
+        if (logoFile) {
+          // TODO: وقتی API آماده شد، اینجا logoFile واقعی آپلود میشه
+          // مثلاً: const uploadResult = await postImageData({ endPoint: "/admin/store-logo", data: formData });
+          // و logoUrl واقعی از پاسخ سرور میاد
+          console.log("[mock] فایل لوگوی جدید برای آپلود:", logoFile.name);
+        }
+
         await updateStoreSettings({ ...values, logoUrl: logoPreviewUrl ?? values.logoUrl });
         setStatus("success");
       } catch {
@@ -34,7 +40,6 @@ function StoreSettings() {
       }
     },
   });
-
   useEffect(() => {
     let isMounted = true;
 

@@ -8,7 +8,7 @@ interface LogoUploaderProps {
   onChange: (file: File) => void;
 }
 
-function LogoUploader({ logoUrl, onChange }: LogoUploaderProps) {
+function LogoUploader({ onChange }: LogoUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import Button from "../ui/Button";
 import trashIcon from "../../assets/icons/delete.png";
-import uploadIcon from "../../assets/icons/plus.png";
 import "../../styles/admin.css";
 
 interface ImageUploaderProps {

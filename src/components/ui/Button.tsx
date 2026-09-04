@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import "../../styles/Button.css";
 
 type ButtonVariant = "main" | "secondary" | "text";

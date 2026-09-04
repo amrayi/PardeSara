@@ -19,7 +19,6 @@ function ProductDetail() {
   const [product, setProduct] = useState<ProductDetailType | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [selectedColorId, setSelectedColorId] = useState<string>("");
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
