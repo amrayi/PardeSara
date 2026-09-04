@@ -74,8 +74,10 @@ export default function PopularCategories() {
   return (
     <section className="popular-categories">
       <div className="popular-categories__header">
-        <h2 className="popular-categories__title">دسته‌بندی‌های محبوب</h2>
-        <span className="popular-categories__underline" />
+        <div>
+          <h2 className="popular-categories__title">دسته‌بندی‌های محبوب</h2>
+          <span className="popular-categories__underline" />
+        </div>
       </div>
 
       <div className="popular-categories__viewport" ref={viewportRef}>
