@@ -83,7 +83,7 @@
   --section-text: #ffffff;
   --section-text-muted: #b0b0b0;
   --section-card-radius: 12px;
-  --section-gap: 24px;
+  --section-gap: 20px;
   --section-padding-y: 100px;
 
   background-color: var(--section-bg);
@@ -95,6 +95,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 16px;
   margin-bottom: 48px;
 }
@@ -114,25 +115,50 @@
   border-radius: 2px;
 }
 
-.popular-categories__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.popular-categories__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.popular-categories__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.popular-categories__viewport.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.popular-categories__track {
+  display: flex;
   gap: var(--section-gap);
-  max-width: 1200px;
-  margin: 0 auto;
+  width: max-content;
 }
 
 .popular-categories__card {
+  flex: 0 0 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   text-decoration: none;
   border: 1px solid var(--color-border);
   border-radius: var(--section-card-radius);
+  background-color: var(--color-bg-detail);
   padding: 16px;
   transition: transform 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
+  scroll-snap-align: start;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .popular-categories__card:hover {
@@ -153,6 +179,7 @@
   object-fit: cover;
   display: block;
   transition: transform 0.4s ease;
+  pointer-events: none;
 }
 
 .popular-categories__card:hover .popular-categories__image {
@@ -167,22 +194,22 @@
 }
 
 @media (max-width: 900px) {
-  .popular-categories__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .popular-categories {
     padding: var(--section-padding-y) 30px;
+  }
+
+  .popular-categories__card {
+    flex: 0 0 220px;
   }
 }
 
 @media (max-width: 560px) {
-  .popular-categories__grid {
-    grid-template-columns: 1fr;
-  }
-
   .popular-categories__title {
     font-size: 22px;
+  }
+
+  .popular-categories__card {
+    flex: 0 0 180px;
   }
 }
 
