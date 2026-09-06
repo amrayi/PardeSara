@@ -698,6 +698,17 @@
   gap: 10px;
 }
 
+.product-form__footer-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.product-form__status {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-text-muted);
+}
+
 /* about us form */
 
 .logo-uploader__label {

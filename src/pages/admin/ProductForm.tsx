@@ -1,55 +1,97 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import ColorCheckboxList from "../../components/admin/ColorCheckboxList";
 import ImageUploader from "../../components/admin/ImageUploader";
 import { productFormSchema } from "../../schemas/productFormSchema";
 import { availableColors, productCategories } from "../../data/mockProductFormOptions";
-import { createProduct } from "../../services/adminProductService";
+import {
+  createProduct,
+  updateProduct,
+  getAdminProductById,
+} from "../../services/adminProductService";
 import type { ProductFormValues } from "../../types/productForm";
 import "../../styles/admin.css";
 
+const EMPTY_VALUES: ProductFormValues = {
+  title: "",
+  price: "",
+  heightCm: "",
+  widthCm: "",
+  category: "",
+  colorIds: [],
+  description: "",
+};
+
 function ProductForm() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const isEditMode = Boolean(id);
+
   const [images, setImages] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(isEditMode);
 
   const formik = useFormik<ProductFormValues>({
-    initialValues: {
-      title: "",
-      price: "",
-      heightCm: "",
-      widthCm: "",
-      category: "",
-      colorIds: [],
-      description: "",
-    },
+    initialValues: EMPTY_VALUES,
     validationSchema: productFormSchema,
+    enableReinitialize: true,
     onSubmit: async (values, { setSubmitting, setStatus, resetForm }) => {
       setStatus(undefined);
       try {
-        await createProduct(values, images);
-        setStatus("success");
-        resetForm();
-        setImages([]);
+        if (isEditMode && id) {
+          await updateProduct(id, values, images);
+          setStatus("success");
+        } else {
+          await createProduct(values, images);
+          setStatus("success");
+          resetForm();
+          setImages([]);
+        }
       } catch {
-        setStatus("خطا در ثبت محصول.");
+        setStatus("خطا در ثبت اطلاعات محصول.");
       } finally {
         setSubmitting(false);
       }
     },
   });
 
-  const toggleColor = (id: string) => {
+  useEffect(() => {
+    if (!id) return;
+    let isMounted = true;
+
+    getAdminProductById(id).then((data) => {
+      if (!isMounted) return;
+      if (data) {
+        formik.setValues(data);
+      }
+      setIsLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  const toggleColor = (colorId: string) => {
     const current = formik.values.colorIds;
-    const updated = current.includes(id)
-      ? current.filter((c) => c !== id)
-      : [...current, id];
+    const updated = current.includes(colorId)
+      ? current.filter((c) => c !== colorId)
+      : [...current, colorId];
     formik.setFieldValue("colorIds", updated);
   };
+
+  if (isLoading) {
+    return <p className="product-form__status">در حال بارگذاری اطلاعات محصول...</p>;
+  }
 
   return (
     <div className="product-form-page">
       <div className="product-form">
-        <h1 className="product-form__title">افزودن محصول جدید</h1>
+        <h1 className="product-form__title">
+          {isEditMode ? "ویرایش محصول" : "افزودن محصول جدید"}
+        </h1>
 
         <form onSubmit={formik.handleSubmit} noValidate>
           <div className="product-form__section">
@@ -185,15 +227,34 @@ function ProductForm() {
 
           <div className="product-form__footer">
             {formik.status === "success" && (
-              <span className="product-form__success">محصول با موفقیت ثبت شد.</span>
+              <span className="product-form__success">
+                {isEditMode ? "تغییرات با موفقیت ذخیره شد." : "محصول با موفقیت ثبت شد."}
+              </span>
             )}
             {formik.status && formik.status !== "success" && (
               <span className="product-form__error">{formik.status}</span>
             )}
 
-            <Button type="submit" variant="main" size="md" radius="md" disabled={formik.isSubmitting}>
-              {formik.isSubmitting ? "در حال ثبت..." : "ثبت محصول"}
-            </Button>
+            <div className="product-form__footer-actions">
+              {isEditMode && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="md"
+                  radius="md"
+                  onClick={() => navigate("/admin/products")}
+                >
+                  انصراف
+                </Button>
+              )}
+              <Button type="submit" variant="main" size="md" radius="md" disabled={formik.isSubmitting}>
+                {formik.isSubmitting
+                  ? "در حال ذخیره..."
+                  : isEditMode
+                  ? "ذخیره تغییرات"
+                  : "ثبت محصول"}
+              </Button>
+            </div>
           </div>
         </form>
       </div>

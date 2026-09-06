@@ -93,6 +93,10 @@ export const router = createBrowserRouter([
             path: "add-product", 
             element: <ProductForm /> 
           },
+          { 
+            path: "admin/products/:id/edit", 
+            element: <ProductForm /> 
+          },
         ],
       },
     ],
