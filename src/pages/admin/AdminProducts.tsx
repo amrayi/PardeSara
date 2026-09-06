@@ -18,16 +18,39 @@ const STOCK_LABEL: Record<StockStatus, string> = {
   out_of_stock: "ناموجود",
 };
 
+const PAGE_SIZE = 10;
+
 function AdminProducts() {
   const [products, setProducts] = useState<AdminProductListItem[]>([]);
   const [activeCategory, setActiveCategory] = useState("همه");
   const [search, setSearch] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getAdminProducts(activeCategory).then(setProducts);
   }, [activeCategory]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [search, activeCategory]);
+
   const filteredProducts = products.filter((p) => p.name.includes(search));
+
+  const totalPages = Math.max(Math.ceil(filteredProducts.length / PAGE_SIZE), 1);
+  const currentPageProducts = filteredProducts.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
+  );
+
+  const getPageNumbers = (): number[] => {
+    if (totalPages <= 3) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    if (page <= 2) return [1, 2, 3];
+    if (page >= totalPages - 1) return [totalPages - 2, totalPages - 1, totalPages];
+    return [page - 1, page, page + 1];
+  };
 
   const handleDelete = (id: string) => {
     console.log("delete product", id);
@@ -47,8 +70,8 @@ function AdminProducts() {
         <a href="/admin/add-product">
           <Button type="button" variant="main" size="sm" radius="md" className="admin-add-btn">
             <span className="btn-icon-swap">
-              <img src={plusIcon_light} alt="" className="btn-icon-swap__light"/>
-              <img src={plusIcon_dark} alt="" className="btn-icon-swap__dark"/>
+              <img src={plusIcon_light} alt="" className="btn-icon-swap__light" />
+              <img src={plusIcon_dark} alt="" className="btn-icon-swap__dark" />
             </span>
             افزودن محصول
           </Button>
@@ -66,28 +89,42 @@ function AdminProducts() {
           />
         </div>
 
-        <div className="admin-products__categories">
-          {CATEGORIES.map((cat) => (
-            <Button
-              key={cat}
-              type="button"
-              variant={activeCategory === cat ? "main" : "secondary"}
-              size="sm"
-              radius="pill"
-              className="admin-chip"
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </Button>
-          ))}
-          <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn">
+        <div className="admin-products__toolbar-filters">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            radius="sm"
+            className="admin-icon-btn"
+            onClick={() => setShowFilters((prev) => !prev)}
+          >
             <img src={filterIcon} alt="فیلتر" />
           </Button>
+
+          <div
+            className={`admin-products__categories ${
+              showFilters ? "admin-products__categories--open" : ""
+            }`}
+          >
+            {CATEGORIES.map((cat) => (
+              <Button
+                key={cat}
+                type="button"
+                variant={activeCategory === cat ? "main" : "secondary"}
+                size="sm"
+                radius="pill"
+                className="admin-chip"
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className="admin-table admin-table--products">
-        {filteredProducts.map((product) => (
+        {currentPageProducts.map((product) => (
           <div key={product.id} className="admin-table__row">
             <div className="admin-table__product">
               {product.image ? (
@@ -124,6 +161,78 @@ function AdminProducts() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="admin-pagination">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          radius="sm"
+          className="admin-icon-btn"
+          disabled={page === 1}
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+        >
+          &lt;
+        </Button>
+
+        {getPageNumbers()[0] > 1 && (
+          <>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              radius="sm"
+              className="admin-icon-btn"
+              onClick={() => setPage(1)}
+            >
+              1
+            </Button>
+            <span>...</span>
+          </>
+        )}
+
+        {getPageNumbers().map((p) => (
+          <Button
+            key={p}
+            type="button"
+            variant={p === page ? "main" : "secondary"}
+            size="sm"
+            radius="sm"
+            className="admin-icon-btn"
+            onClick={() => setPage(p)}
+          >
+            {p}
+          </Button>
+        ))}
+
+        {getPageNumbers()[getPageNumbers().length - 1] < totalPages && (
+          <>
+            <span>...</span>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              radius="sm"
+              className="admin-icon-btn"
+              onClick={() => setPage(totalPages)}
+            >
+              {totalPages}
+            </Button>
+          </>
+        )}
+
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          radius="sm"
+          className="admin-icon-btn"
+          disabled={page === totalPages}
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+        >
+          &gt;
+        </Button>
       </div>
     </div>
   );

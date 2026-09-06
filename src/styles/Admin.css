@@ -496,6 +496,74 @@
   height: 18px;
 }
 
+/* Order status menu (dropdown) */
+.order-status-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-inline-start: auto;
+}
+
+.order-status-menu__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 10;
+  background-color: var(--color-bg-detail);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 150px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.order-status-menu__item {
+  background: none;
+  border: none;
+  text-align: right;
+  padding: 9px 12px;
+  border-radius: 7px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.order-status-menu__item:hover {
+  background-color: var(--color-bg-items);
+}
+
+.order-status-menu__item--active {
+  color: var(--color-title);
+  font-weight: 600;
+}
+
+/* Filter chips toggle */
+.admin-products__categories {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.admin-products__categories--open {
+  max-width: 600px;
+  opacity: 1;
+}
+
+.admin-orders__toolbar-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Three-dot "more" button — drawn with CSS, not an icon file */
 .admin-more-dots {
   display: flex;
@@ -599,12 +667,6 @@
   border: 1px solid var(--color-border);
 }
 
-.admin-filter-btn img {
-  width: 14px;
-  height: 14px;
-}
-
-/* --- Pagination --- */
 .admin-pagination {
   display: flex;
   align-items: center;
@@ -615,6 +677,25 @@
 
 .admin-pagination--simple {
   justify-content: space-between;
+}
+
+.admin-products__categories {
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  gap: 8px;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.admin-products__categories--open {
+  max-width: 700px;
+  opacity: 1;
+}
+
+.admin-products__toolbar-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* about us form */
