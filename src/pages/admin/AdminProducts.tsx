@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAdminProducts } from "../../services/adminService";
+import { deleteProduct } from "../../services/adminProductService";
 import type { AdminProductListItem, StockStatus } from "../../types/admin";
 import { formatPrice } from "../../utils/formatPrice";
 import Button from "../../components/ui/Button";
@@ -9,6 +11,7 @@ import searchIcon from "../../assets/icons/search.png";
 import filterIcon from "../../assets/icons/filter.png";
 import editIcon from "../../assets/icons/edit.png";
 import trashIcon from "../../assets/icons/delete.png";
+import Modal from "../../components/ui/Modal";
 
 const CATEGORIES = ["همه", "اتاق خواب", "پذیرایی", "شید", "زبرا", "شب و روز", "کرکره فلزی"];
 
@@ -21,11 +24,16 @@ const STOCK_LABEL: Record<StockStatus, string> = {
 const PAGE_SIZE = 10;
 
 function AdminProducts() {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState<AdminProductListItem[]>([]);
   const [activeCategory, setActiveCategory] = useState("همه");
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [page, setPage] = useState(1);
+
+  const [productToDelete, setProductToDelete] = useState<AdminProductListItem | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     getAdminProducts(activeCategory).then(setProducts);
@@ -52,12 +60,26 @@ function AdminProducts() {
     return [page - 1, page, page + 1];
   };
 
-  const handleDelete = (id: string) => {
-    console.log("delete product", id);
+  const handleEdit = (id: string) => {
+    navigate(`/admin/products/${id}/edit`);
   };
 
-  const handleEdit = (id: string) => {
-    console.log("edit product", id);
+  const handleDeleteClick = (product: AdminProductListItem) => {
+    setProductToDelete(product);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
+    setIsDeleting(true);
+    try {
+      await deleteProduct(productToDelete.id);
+      setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      setProductToDelete(null);
+    } catch {
+      // می‌تونیم اینجا یه پیام خطا نشون بدیم
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -102,9 +124,8 @@ function AdminProducts() {
           </Button>
 
           <div
-            className={`admin-products__categories ${
-              showFilters ? "admin-products__categories--open" : ""
-            }`}
+            className={`admin-products__categories ${showFilters ? "admin-products__categories--open" : ""
+              }`}
           >
             {CATEGORIES.map((cat) => (
               <Button
@@ -152,10 +173,24 @@ function AdminProducts() {
             </div>
 
             <div className="admin-table__actions">
-              <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn" onClick={() => handleEdit(product.id)}>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                radius="sm"
+                className="admin-icon-btn"
+                onClick={() => handleEdit(product.id)}
+              >
                 <img src={editIcon} alt="ویرایش" />
               </Button>
-              <Button type="button" variant="secondary" size="sm" radius="sm" className="admin-icon-btn" onClick={() => handleDelete(product.id)}>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                radius="sm"
+                className="admin-icon-btn"
+                onClick={() => handleDeleteClick(product)}
+              >
                 <img src={trashIcon} alt="حذف" />
               </Button>
             </div>
@@ -234,6 +269,44 @@ function AdminProducts() {
           &gt;
         </Button>
       </div>
+
+      <Modal
+        isOpen={productToDelete !== null}
+        onClose={() => setProductToDelete(null)}
+        title="حذف محصول"
+        description={
+          productToDelete
+            ? `آیا از حذف محصول «${productToDelete.name}» اطمینان دارید؟ این عملیات قابل بازگشت نیست.`
+            : ""
+        }
+        size="sm"
+        footer={
+          <>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              radius="md"
+              className="modal-btn--neutral"
+              onClick={() => setProductToDelete(null)}
+              disabled={isDeleting}
+            >
+              انصراف
+            </Button>
+            <Button
+              type="button"
+              variant="main"
+              size="sm"
+              radius="md"
+              className="modal-btn--danger"
+              onClick={handleConfirmDelete}
+              disabled={isDeleting}
+            >
+              {isDeleting ? "در حال حذف..." : "حذف محصول"}
+            </Button>
+          </>
+        }
+      />
     </div>
   );
 }

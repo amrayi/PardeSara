@@ -1119,3 +1119,8 @@
     gap: 14px;
   }
 }
+
+.confirm-dialog__confirm-btn {
+  --btn-main-bg: #e07a7a;
+  --btn-main-hover: #c85c5c;
+}
