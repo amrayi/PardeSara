@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useProductsQuery } from "../hooks/useProductsQuery";
+import { searchProductsClientSide } from "../services/productService";
+import SearchOverlay from "./searchOverlay";
 import "../styles/Header.css";
 import profile from "../assets/icons/Container.png";
 import buy from "../assets/icons/buy.png";
+import searchIcon from "../assets/icons/search.png";
 
 const navItems = [
   { label: "خانه", path: "/" },
@@ -14,9 +18,16 @@ const navItems = [
 export default function Header() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { data: allProducts = [], isLoading: isProductsLoading } = useProductsQuery();
 
   const [isHidden, setIsHidden] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const [submittedQuery, setSubmittedQuery] = useState("");
+  const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -46,7 +57,10 @@ export default function Header() {
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsMobileMenuOpen(false);
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        setIsSearchBarOpen(false);
+      }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
@@ -59,6 +73,17 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    if (isSearchBarOpen) {
+      searchInputRef.current?.focus();
+    }
+  }, [isSearchBarOpen]);
+
+  const searchResults = useMemo(
+    () => searchProductsClientSide(allProducts, submittedQuery),
+    [allProducts, submittedQuery]
+  );
+
   const handleProfileClick = () => {
     if (user?.role === "admin") {
       navigate("/admin");
@@ -69,6 +94,21 @@ export default function Header() {
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const handleSearchIconClick = () => {
+    setIsSearchBarOpen((prev) => !prev);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchInputValue.trim()) return;
+    setSubmittedQuery(searchInputValue.trim());
+    setIsSearchOverlayOpen(true);
+  };
+
+  const closeSearchOverlay = () => {
+    setIsSearchOverlayOpen(false);
+  };
+
   return (
     <>
       <header
@@ -76,14 +116,12 @@ export default function Header() {
           isMobileMenuOpen ? "header--menu-open" : ""
         }`}
       >
-        {/* لوگو (سمت راست در RTL) - فقط دسکتاپ */}
         <div className="header__brand">
           <a href="/">
             <span>پرده‌سرا</span>
           </a>
         </div>
 
-        {/* ناوبری دسکتاپ (وسط) */}
         <nav className="header__nav">
           <ul className="header__nav-list">
             {navItems.map((item) => (
@@ -91,9 +129,7 @@ export default function Header() {
                 <NavLink
                   to={item.path}
                   className={({ isActive }) =>
-                    `header__nav-link ${
-                      isActive ? "header__nav-link--active" : ""
-                    }`
+                    `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
                   }
                 >
                   {item.label}
@@ -103,8 +139,42 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* آیکون‌های اکشن (سمت چپ در RTL) */}
         <div className="header__actions">
+
+          <div className="header__search">
+            <form
+              className={`header__search-bar ${
+                isSearchBarOpen ? "header__search-bar--open" : ""
+              }`}
+              onSubmit={handleSearchSubmit}
+            >
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="جستجوی محصول..."
+                value={searchInputValue}
+                onChange={(e) => setSearchInputValue(e.target.value)}
+                className="header__search-input"
+              />
+            </form>
+
+            <button
+              type="button"
+              className="header__icon-btn"
+              aria-label="جستجو"
+              onClick={() => {
+                if (isSearchBarOpen && searchInputValue.trim()) {
+                  setSubmittedQuery(searchInputValue.trim());
+                  setIsSearchOverlayOpen(true);
+                } else {
+                  handleSearchIconClick();
+                }
+              }}
+            >
+              <img src={searchIcon} alt="search" className="header__icon" />
+            </button>
+          </div>
+          
           <button
             className="header__icon-btn"
             aria-label="حساب کاربری"
@@ -112,14 +182,13 @@ export default function Header() {
           >
             <img src={profile} alt="user" className="header__icon" />
           </button>
-          <button className="header__icon-btn" aria-label="سبد خرید">
-            <NavLink to="/cart">
-              <img src={buy} alt="cart" className="header__icon" />
-            </NavLink>
-          </button>
+
+          <NavLink to="/cart" className="header__icon-btn" aria-label="سبد خرید">
+            <img src={buy} alt="cart" className="header__icon" />
+          </NavLink>
+
         </div>
 
-        {/* همبرگر منو - فقط موبایل */}
         <button
           className="header__hamburger"
           aria-label="باز کردن منو"
@@ -132,18 +201,14 @@ export default function Header() {
         </button>
       </header>
 
-      <div
-        className={`header__drawer ${isMobileMenuOpen ? "header__drawer--open" : ""}`}
-      >
+      <div className={`header__drawer ${isMobileMenuOpen ? "header__drawer--open" : ""}`}>
         <ul className="header__drawer-list">
           {navItems.map((item) => (
             <li key={item.path} className="header__drawer-item">
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `header__drawer-link ${
-                    isActive ? "header__drawer-link--active" : ""
-                  }`
+                  `header__drawer-link ${isActive ? "header__drawer-link--active" : ""}`
                 }
                 onClick={closeMobileMenu}
               >
@@ -155,12 +220,16 @@ export default function Header() {
       </div>
 
       {isMobileMenuOpen && (
-        <div
-          className="header__overlay"
-          onClick={closeMobileMenu}
-          aria-hidden="true"
-        />
+        <div className="header__overlay" onClick={closeMobileMenu} aria-hidden="true" />
       )}
+
+      <SearchOverlay
+        isOpen={isSearchOverlayOpen}
+        query={submittedQuery}
+        results={searchResults}
+        isLoading={isProductsLoading}
+        onClose={closeSearchOverlay}
+      />
     </>
   );
 }
