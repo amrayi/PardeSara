@@ -57,3 +57,15 @@ export async function getAdminProducts(categoryFilter?: string): Promise<AdminPr
   if (!categoryFilter || categoryFilter === "همه") return mockProducts;
   return mockProducts.filter((p) => p.category.includes(categoryFilter));
 }
+
+
+export async function updateAdminOrderStatus(
+  orderId: string,
+  status: AdminOrderSummary["status"]
+): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, 400));
+  console.log(`[mock] وضعیت سفارش ${orderId} به ${status} تغییر کرد`);
+
+  // ---- نسخه آینده ----
+  // return patchData({ endPoint: `/admin/orders/${orderId}/status`, data: { status } });
+}

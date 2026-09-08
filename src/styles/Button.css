@@ -6,9 +6,10 @@
   --btn-secondary-bg: #f0f0f0;
   --btn-secondary-text: #1a1a1a;
   --btn-secondary-hover: #e0e0e0;
+  --btn-border: transparent;
   --btn-radius-pill: 9999px;
   font-family: var(--font-family-base);
-  border: none;
+  border: 1px solid var(--btn-border);
   cursor: pointer;
   transition: all 0.25s ease;
   display: inline-flex;
@@ -17,6 +18,7 @@
   gap: 8px;
   font-weight: 600;
 }
+
 .btn:active {
   transform: scale(0.97);
 }

@@ -73,6 +73,80 @@
   height: 18px;
 }
 
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-main {
+    width: 100%;
+  }
+
+  /* Sidebar -> bottom tab bar */
+  .admin-layout .admin-sidebar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+    border-inline-start: none;
+    border-top: 1px solid var(--color-border);
+    z-index: 50;
+  }
+
+  .admin-layout .admin-sidebar__brand {
+    display: none;
+  }
+
+  .admin-layout .admin-sidebar__nav {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    gap: 0;
+  }
+
+  .admin-layout .admin-sidebar__link {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .admin-layout .admin-sidebar__link img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .admin-layout .admin-sidebar__settings {
+    margin-top: 0;
+    width: auto;
+  }
+
+  .admin-content {
+    padding: 16px;
+    padding-bottom: 88px;
+  }
+
+  .admin-topbar {
+    padding: 16px 20px;
+  }
+
+  .stat-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .admin-page-header {
+    padding: 16px 18px;
+  }
+}
+
 /* --- Main / Topbar --- */
 .admin-main {
   flex: 1;
@@ -114,6 +188,7 @@
 }
 
 .admin-topbar__actions {
+  margin-inline-start: auto;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -496,6 +571,74 @@
   height: 18px;
 }
 
+/* Order status menu (dropdown) */
+.order-status-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-inline-start: auto;
+}
+
+.order-status-menu__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 10;
+  background-color: var(--color-bg-detail);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 150px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.order-status-menu__item {
+  background: none;
+  border: none;
+  text-align: right;
+  padding: 9px 12px;
+  border-radius: 7px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.order-status-menu__item:hover {
+  background-color: var(--color-bg-items);
+}
+
+.order-status-menu__item--active {
+  color: var(--color-title);
+  font-weight: 600;
+}
+
+/* Filter chips toggle */
+.admin-products__categories {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.admin-products__categories--open {
+  max-width: 600px;
+  opacity: 1;
+}
+
+.admin-orders__toolbar-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Three-dot "more" button — drawn with CSS, not an icon file */
 .admin-more-dots {
   display: flex;
@@ -599,12 +742,6 @@
   border: 1px solid var(--color-border);
 }
 
-.admin-filter-btn img {
-  width: 14px;
-  height: 14px;
-}
-
-/* --- Pagination --- */
 .admin-pagination {
   display: flex;
   align-items: center;
@@ -615,6 +752,36 @@
 
 .admin-pagination--simple {
   justify-content: space-between;
+}
+
+.admin-products__categories {
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  gap: 8px;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.admin-products__categories--open {
+  max-width: 700px;
+  opacity: 1;
+}
+
+.admin-products__toolbar-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-form__footer-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.product-form__status {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-text-muted);
 }
 
 /* about us form */
@@ -1026,4 +1193,9 @@
     align-items: stretch;
     gap: 14px;
   }
+}
+
+.confirm-dialog__confirm-btn {
+  --btn-main-bg: #e07a7a;
+  --btn-main-hover: #c85c5c;
 }
