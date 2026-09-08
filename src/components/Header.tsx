@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useProductsQuery } from "../hooks/useProductsQuery";
 import { searchProductsClientSide } from "../services/productService";
-import SearchOverlay from "./searchOverlay";
+import SearchOverlay from "./SearchOverlay";
 import "../styles/Header.css";
 import profile from "../assets/icons/Container.png";
 import buy from "../assets/icons/buy.png";
