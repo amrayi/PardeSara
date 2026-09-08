@@ -1,44 +1,27 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FilterSidebar from "../components/FilterSidebar";
-import { getProducts } from "../services/productService";
-import type { Product } from "../types/product";
+import { useProductsQuery } from "../hooks/useProductsQuery";
+import { filterProductsClientSide } from "../services/productService";
 import "../styles/ProductList.css";
 
 function ProductList() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: allProducts = [], isLoading, error } = useProductsQuery();
 
   const selectedPriceRangeIds = searchParams.getAll("price");
   const selectedCategoryIds = searchParams.getAll("category");
 
-  useEffect(() => {
-    let isMounted = true;
-
-    async function fetchProducts() {
-      try {
-        setIsLoading(true);
-        const data = await getProducts({
-          priceRangeIds: selectedPriceRangeIds,
-          categoryIds: selectedCategoryIds,
-        });
-        if (isMounted) setProducts(data);
-      } catch {
-        if (isMounted) setError("خطا در دریافت محصولات");
-      } finally {
-        if (isMounted) setIsLoading(false);
-      }
-    }
-
-    fetchProducts();
-    return () => {
-      isMounted = false;
-    };
+  const products = useMemo(
+    () =>
+      filterProductsClientSide(allProducts, {
+        priceRangeIds: selectedPriceRangeIds,
+        categoryIds: selectedCategoryIds,
+      }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams.toString()]);
+    [allProducts, searchParams.toString()]
+  );
 
   const toggleParam = (key: "price" | "category", value: string) => {
     const current = searchParams.getAll(key);
@@ -73,7 +56,11 @@ function ProductList() {
 
         <div className="product-list-page__grid-wrapper">
           {isLoading && <p className="product-list-page__status">در حال بارگذاری...</p>}
-          {error && <p className="product-list-page__status product-list-page__status--error">{error}</p>}
+          {error && (
+            <p className="product-list-page__status product-list-page__status--error">
+              خطا در دریافت محصولات
+            </p>
+          )}
 
           {!isLoading && !error && products.length === 0 && (
             <p className="product-list-page__status">محصولی با این فیلترها یافت نشد.</p>

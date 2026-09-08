@@ -7,10 +7,27 @@ import { priceRanges } from "../data/priceRange";
 
 const SIMULATED_DELAY = 400;
 
-export async function getProducts(filters?: ProductFilters): Promise<Product[]> {
+// این تابع تنها منبع داده‌ست که با React Query کش میشه؛ همیشه کل لیست رو بدون فیلتر برمی‌گردونه
+export async function getAllProducts(): Promise<Product[]> {
   await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
+  return [...mockProducts];
 
-  let result = [...mockProducts];
+  // ---- نسخه آینده ----
+  // return getData<Product[]>({ endPoint: "/products" });
+}
+
+// نگه داشته شده برای سازگاری با کدهای قبلی؛ ولی از این به بعد ترجیحاً به‌جاش
+// از useProductsQuery + filterProducts (سمت کلاینت) استفاده کن تا درخواست تکراری نره
+export async function getProducts(filters?: ProductFilters): Promise<Product[]> {
+  const all = await getAllProducts();
+  return filterProductsClientSide(all, filters);
+}
+
+export function filterProductsClientSide(
+  products: Product[],
+  filters?: ProductFilters
+): Product[] {
+  let result = [...products];
 
   if (filters?.categoryIds && filters.categoryIds.length > 0) {
     result = result.filter((p) => filters.categoryIds!.includes(p.categoryId));
@@ -24,10 +41,14 @@ export async function getProducts(filters?: ProductFilters): Promise<Product[]> 
   }
 
   return result;
-
-  // ---- نسخه آینده ----
-  // return getData<Product[]>({ endPoint: "/products", params: filters });
 }
+
+export function searchProductsClientSide(products: Product[], query: string): Product[] {
+  if (!query.trim()) return [];
+  const normalized = query.trim().toLowerCase();
+  return products.filter((p) => p.title.toLowerCase().includes(normalized));
+}
+
 export async function getProductDetailBySlug(
   slug: string
 ): Promise<ProductDetail | undefined> {
@@ -44,12 +65,10 @@ export async function getRelatedProducts(
 ): Promise<Product[]> {
   await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
 
-  return mockProducts
-    .filter((p) => p.slug !== currentSlug)
-    .slice(0, limit);
+  return mockProducts.filter((p) => p.slug !== currentSlug).slice(0, limit);
 
-    // ---- نسخه آینده ----
-    // return getData<Product[]>({ endPoint: `/products/${currentSlug}/related` });
+  // ---- نسخه آینده ----
+  // return getData<Product[]>({ endPoint: `/products/${currentSlug}/related` });
 }
 
 export async function getNewestProducts(limit = 4): Promise<Product[]> {
