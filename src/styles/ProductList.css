@@ -56,6 +56,14 @@
   color: #e07a7a;
 }
 
+.product-list-page__pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
 @media (max-width: 900px) {
   .product-list-page__content {
     grid-template-columns: 1fr;
